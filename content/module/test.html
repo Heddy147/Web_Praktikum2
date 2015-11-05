@@ -1,8 +1,3 @@
-<form action='' method='POST'>
-    <p>
-        <input type='text' name='wasGeht' placeholder="${placeholder}" />
-    </p>
-    <p>
-        <input type='submit' value='Test' />
-    </p>
-</form>
+% for thema in themen:
+    ${thema['name']} | ${loop.index} <br/>
+% endfor
