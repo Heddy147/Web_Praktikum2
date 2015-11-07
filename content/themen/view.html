@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Themen-ID</th>
+            <th>Name</th>
+        </tr>
+        % for t_id in themen:
+        <tr>
+            <td>${t_id}</td>
+            <td>${themen[t_id]['name']}</td>
+        </tr>
+        % endfor
+    </table>
+</body>
+</html>

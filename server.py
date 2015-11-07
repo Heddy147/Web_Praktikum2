@@ -1,7 +1,7 @@
 # coding: utf-8
 import os
 import cherrypy
-from app import application, module, database
+from app import application, module, database, themen
 from cherrypy.lib import auth_basic
 # --------------------------------------
 
@@ -57,6 +57,8 @@ def main():
 			'tools.auth_basic.checkpassword': validate_password
 		}
 	})
+
+	cherrypy.tree.mount(themen.Themen_cl(), '/themen', {'/': {}})
 
 	# Start server
 	cherrypy.engine.start()

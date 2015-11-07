@@ -17,6 +17,8 @@ class Themen_cl(object):
 	def view(self):
 		themen = self.db.loadThemen()
 
+		print(themen)
+
 		template = Template(filename="content/themen/view.html")
 		return template.render(themen=themen)
 
