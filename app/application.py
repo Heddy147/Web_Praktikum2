@@ -15,9 +15,11 @@ class Application_cl(object):
 		# --------------------------------------
 	# Methode "module" definieren
 
+	@cherrypy.expose
 	def sortBySemester(self, json):
 		return int(json['semester'])
 
+	@cherrypy.expose
 	def module(self):
 		# --------------------------------------
 		# HTML-Code
@@ -31,7 +33,7 @@ class Application_cl(object):
 			<body>
 				<table id="sort-by-kuerzel">
 					<tr>
-						<th>Kürzel</th>
+						<th>Kuerzel</th>
 						<th>Bezeichnung</th>
 						<th>Studiengang</th>
 						<th>Semester</th>
@@ -58,7 +60,7 @@ class Application_cl(object):
 				</table>
 				<table id="sort-by-semester">
 					<tr>
-						<th>Kürzel</th>
+						<th>Kuerzel</th>
 						<th>Bezeichnung</th>
 						<th>Studiengang</th>
 						<th>Semester</th>
@@ -80,7 +82,7 @@ class Application_cl(object):
 		markup += """
 				</table>
 				<button onclick="sortBySemester();" id="sort-by-semester">Nach Semester sortieren</button>
-				<button onclick="sortByKuerzel();" id="sort-by-kuerzel">Nach Kürzel sortieren</button>
+				<button onclick="sortByKuerzel();" id="sort-by-kuerzel">Nach Kuerzel sortieren</button>
 			</body>
 		</html>
 		"""
@@ -91,10 +93,12 @@ class Application_cl(object):
 	module.exposed = True
 	# --------------------------------------
 
+	@cherrypy.expose
 	def newFunction(self):
 		daten = "lol"
 	newFunction.exposed = True
 
+	@cherrypy.expose
 	def	default(self, *arglist, **kwargs):
 		# --------------------------------------
 		msg_s =	"unbekannte Anforderung: " + \

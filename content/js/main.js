@@ -25,3 +25,16 @@ function sortBySemester() {
 	button2.style.display = "";
 	button1.style.display = "none";
 }
+
+
+function themaClicked(){
+	$("tr").click(function(){
+		window.location.href = "/diskussion?id="+this.id;
+	});
+}
+
+function diskussionClicked(){
+	$("tr").click(function(){
+		window.location.href = "/beitrag?id="+this.id;
+	});
+}

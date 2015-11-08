@@ -1,0 +1,17 @@
+{
+	"beitrag0": {
+		"key": "diskussion0",
+		"beschreibung": "Beschreibung der Beitrag0",
+		"titel": "Beitrag0"
+	},
+	"beitrag1": {
+		"key": "diskussion1",
+		"beschreibung": "Beschreibung der Beitrag1",
+		"titel": "Beitrag1"
+	},
+	"beitrag2": {
+		"key": "diskussion2",
+		"beschreibung": "Beschreibung der Beitrag2",
+		"titel": "Beitrag2"
+	}
+}

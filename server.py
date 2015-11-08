@@ -1,7 +1,7 @@
 # coding: utf-8
 import os
 import cherrypy
-from app import application, module, database
+from app import application, module, database, diskussion, thema, beitrag
 from cherrypy.lib import auth_basic
 # --------------------------------------
 
@@ -51,6 +51,42 @@ def main():
 
 	# Mount static content handler
 	cherrypy.tree.mount(module.Module_cl(), '/module', {
+		'/': {
+			'tools.auth_basic.on': True,
+			'tools.auth_basic.realm': 'localhost',
+			'tools.auth_basic.checkpassword': validate_password
+		}
+	})
+
+	# Mount static content handler
+	cherrypy.tree.mount(diskussion.Diskussion_cl(), '/diskussion', {
+		'/': {
+			'tools.auth_basic.on': True,
+			'tools.auth_basic.realm': 'localhost',
+			'tools.auth_basic.checkpassword': validate_password
+		}
+	})
+
+	# Mount static content handler
+	cherrypy.tree.mount(thema.Thema_cl(), '/thema', {
+		'/': {
+			'tools.auth_basic.on': True,
+			'tools.auth_basic.realm': 'localhost',
+			'tools.auth_basic.checkpassword': validate_password
+		}
+	})
+
+	# Mount static content handler
+	cherrypy.tree.mount(beitrag.Beitrag_cl(), '/beitrag', {
+		'/': {
+			'tools.auth_basic.on': True,
+			'tools.auth_basic.realm': 'localhost',
+			'tools.auth_basic.checkpassword': validate_password
+		}
+	})
+
+	# Mount static content handler
+	cherrypy.tree.mount(application.Application_cl(), '/application', {
 		'/': {
 			'tools.auth_basic.on': True,
 			'tools.auth_basic.realm': 'localhost',
