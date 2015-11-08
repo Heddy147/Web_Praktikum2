@@ -1,9 +1,15 @@
 {
   "dominik": {
-    "password": "dominik123"
+    "password": "dominik123",
+    "rolle": "admin",
+    "diskussion": ["1", "2", "3"],
+    "beitraege": ["1", "2", "3"]
   },
   "david": {
-    "password": "david123"
+    "password": "david123",
+    "rolle": "bearbeiter",
+    "diskussion": ["1", "2", "3"],
+    "beitraege": ["1", "2", "3"]
   },
   "volker": {
     "password": "volker123"

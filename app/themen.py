@@ -14,12 +14,24 @@ class Themen_cl(object):
 		pass
 
 	@cherrypy.expose
-	def view(self):
-		themen = self.db.loadThemen()
+	def index(self):
+		themen = self.db.load_themen()
 
-		print(themen)
-
-		template = Template(filename="content/themen/view.html")
+		template = Template(filename="content/themen/index.html")
 		return template.render(themen=themen)
 
+	@cherrypy.expose
+	def delete(self, themen_id):
+		self.db.delete_thema(themen_id)
+
+		raise cherrypy.HTTPRedirect("/themen/index")
+
+	@cherrypy.expose
+	def create(self, **kwargs):
+		if "name" in kwargs and "beschreibung" in kwargs:
+			self.db.create_thema(kwargs["name"], kwargs["beschreibung"])
+			raise cherrypy.HTTPRedirect("/themen/index")
+
+		template = Template(filename="content/themen/create.html")
+		return template.render()
 # EOF

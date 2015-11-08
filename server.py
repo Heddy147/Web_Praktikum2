@@ -1,16 +1,17 @@
 # coding: utf-8
 import os
 import cherrypy
-from app import application, module, database, diskussion, thema, beitrag
+from app import application, module, database, diskussionen, themen, beitrag
 from cherrypy.lib import auth_basic
 # --------------------------------------
 
 db = database.Database_cl()
-
+application.user = None
 
 def validate_password(realm, username, password):
-	users = db.loadUser()
+	users = db.load_user()
 	if username in users and users[username]["password"] == password:
+		application.user = users[username]
 		return True
 	return False
 
@@ -24,10 +25,6 @@ def main():
 		current_dir = os.path.dirname(os.path.abspath(sys.executable))
 
 	cherrypy.Application.currentDir = current_dir
-
-	config_file = "server.conf"
-	if os.path.dirname(config_file) == False:
-		config_file = None
 
 	# disable autoreload and timeout_monitor
 	cherrypy.engine.autoreload.unsubscribe()
@@ -47,52 +44,11 @@ def main():
 		}
 	}
 
-	cherrypy.tree.mount(None, '/', config_file)
+	cherrypy.tree.mount(application.Application_cl(), '/', {"/": {}})
 
-	# Mount static content handler
-	cherrypy.tree.mount(module.Module_cl(), '/module', {
-		'/': {
-			'tools.auth_basic.on': True,
-			'tools.auth_basic.realm': 'localhost',
-			'tools.auth_basic.checkpassword': validate_password
-		}
-	})
-
-	# Mount static content handler
-	cherrypy.tree.mount(diskussion.Diskussion_cl(), '/diskussion', {
-		'/': {
-			'tools.auth_basic.on': True,
-			'tools.auth_basic.realm': 'localhost',
-			'tools.auth_basic.checkpassword': validate_password
-		}
-	})
-
-	# Mount static content handler
-	cherrypy.tree.mount(thema.Thema_cl(), '/thema', {
-		'/': {
-			'tools.auth_basic.on': True,
-			'tools.auth_basic.realm': 'localhost',
-			'tools.auth_basic.checkpassword': validate_password
-		}
-	})
-
-	# Mount static content handler
-	cherrypy.tree.mount(beitrag.Beitrag_cl(), '/beitrag', {
-		'/': {
-			'tools.auth_basic.on': True,
-			'tools.auth_basic.realm': 'localhost',
-			'tools.auth_basic.checkpassword': validate_password
-		}
-	})
-
-	# Mount static content handler
-	cherrypy.tree.mount(application.Application_cl(), '/application', {
-		'/': {
-			'tools.auth_basic.on': True,
-			'tools.auth_basic.realm': 'localhost',
-			'tools.auth_basic.checkpassword': validate_password
-		}
-	})
+	cherrypy.tree.mount(diskussionen.Diskussionen_cl(), '/diskussionen', {'/': {}})
+	cherrypy.tree.mount(themen.Themen_cl(), '/themen', {'/': {}})
+	cherrypy.tree.mount(beitrag.Beitrag_cl(), '/beitrag', {'/': {}})
 
 	# Start server
 	cherrypy.engine.start()

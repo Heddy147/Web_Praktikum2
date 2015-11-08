@@ -8,6 +8,6 @@ class Application_cl(object):
 
 	@cherrypy.expose
 	def default(self, *arglist, **kwargs):
-		raise cherrypy.HTTPRedirect("/themen/view")
+		raise cherrypy.HTTPRedirect("/themen/index")
 
 # EOF

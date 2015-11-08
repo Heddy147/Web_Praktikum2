@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        table {
+            width: 100%;
+        }
+
+        table th {
+            background-color: black;
+            color: white;
+        }
+
+        table tr:nth-child(odd) td {
+            background-color: orange;
+        }
+
+        table tr:nth-child(even) td {
+            background-color: yellow;
+        }
+
+        p.break {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Diskussions-ID</th>
+            <th>
+                <p class="break">Diskussions-Name</p>
+                <p class="break"><small><small>Beschreibung</small></small></p>
+            </th>
+        </tr>
+        % for d_id in diskussionen:
+        <tr>
+            <td>${d_id}</td>
+            <td>
+                <p class="break">${diskussionen[d_id]['name']}</p>
+                <p class="break"><small><small>${diskussionen[d_id]['beschreibung']}</small></small></p>
+            </td>
+        </tr>
+        % endfor
+    </table>
+</body>
+</html>

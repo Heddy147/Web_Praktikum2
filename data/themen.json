@@ -1,8 +1,1 @@
-{
-  "1": {
-    "name": "Thema 1"
-  },
-  "2": {
-    "name": "Thema 2"
-  }
-}
+{"1": {"beschreibung": "Beschreibung Thema 1", "name": "Thema 1"}}
