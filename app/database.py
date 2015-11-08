@@ -16,4 +16,11 @@ class Database_cl(object):
 
 		return userData
 
+	@cherrypy.expose
+	def loadThemen(self):
+		themenFile = open("data/themen.json", "r")
+		themenData = json.load(themenFile)
+
+		return themenData
+
 # EOF
