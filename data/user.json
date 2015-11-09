@@ -1,1 +1,1 @@
-{"dominik": {"password": "dominik123", "diskussionen": [], "rolle": "admin"}, "david": {"password": "david123", "diskussionen": ["1","2"], "rolle": "bearbeiter"}}
+{"dominik": {"rolle": "admin", "password": "dominik123", "diskussionen": []}, "david123": {"rolle": "bearbeiter", "password": "12345admin", "diskussionen": ["2", "4", "5"]}}

@@ -92,7 +92,7 @@ function selectUser(element) {
 		elem.removeClass("selected-user");
 		$("button").attr("disabled", "disabled");
 	} else {
-		$(".beitrag").removeClass("selected-user");
+		$(".user").removeClass("selected-user");
 		elem.addClass("selected-user");
 		$("button").removeAttr("disabled");
 	}
