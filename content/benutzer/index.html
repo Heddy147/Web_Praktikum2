@@ -16,7 +16,7 @@
             <th>Benutzerrolle</th>
         </tr>
         % for u_name in users:
-        <tr onclick="selectUser(this);" data-id="${u_name}">
+        <tr class="user" onclick="selectUser(this);" data-id="${u_name}">
             <td>${u_name}</td>
             <td>${users[u_name]['rolle']}</td>
         </tr>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Benutzer erstellen</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/main.js"></script>
+</head>
+<body>
+    % if error:
+    <p class="error">Es ist etwas schief gegangen!</p>
+    % endif
+    <a href="/benutzer">Zur&uuml;ck</a>
+    <form method="POST">
+        <p>
+            <label>Benutzername:</label>
+            <input type="text" name="username" value="${username}"/>
+        </p>
+        <p>
+            <label>Passwort:</label>
+            <input type="password" name="password" value="${user[username]['password']}"/>
+        </p>
+        <p>
+            <label>Rolle:</label>
+            % if "admin" in user[username]["rolle"]:
+            <input type="radio" name="rolle" value="admin" checked/> Admin
+            % else:
+            <input type="radio" name="rolle" value="admin" /> Admin
+            % endif
+            % if "bearbeiter" in user[username]["rolle"]:
+            <input type="radio" name="rolle" value="bearbeiter" checked/> Bearbeiter
+            % else:
+            <input type="radio" name="rolle" value="bearbeiter" /> Bearbeiter
+            % endif
+        </p>
+        <p>
+            <label>Diskussionen:</label>
+            <select multiple name="diskussionen">
+                % for t_id in diskussionen:
+                % for diskussion in diskussionen[t_id]:
+                % if diskussion[0] in user[username]["diskussionen"]:
+                <option value="${diskussion[0]}" selected>${diskussion[1]["name"]}</option>
+                % else:
+                <option value="${diskussion[0]}">${diskussion[1]["name"]}</option>
+                % endif
+                % endfor
+                % endfor
+            </select>
+        </p>
+        <p>
+            <input type="submit" value="Editieren" />
+        </p>
+    </form>
+</body>
+</html>

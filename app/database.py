@@ -33,6 +33,23 @@ class Database_cl(object):
 
 		return True
 
+	def edit_user(self, old_user, username, password, rolle, diskussionen):
+		self.delete_user(old_user)
+
+		user = self.load_user()
+		if username in user:
+			return False
+
+		user[username] = {
+			"password": password,
+			"rolle": rolle,
+			"diskussionen": diskussionen
+		}
+
+		self.save_users_file(user)
+		return True
+
+
 	def delete_user(self, username):
 		users = self.load_user()
 		if username in users:
