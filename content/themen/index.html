@@ -2,62 +2,10 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title></title>
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <style>
-        table {
-            width: 100%;
-        }
-
-        table th {
-            background-color: black;
-            color: white;
-        }
-
-        table tr:nth-child(odd) td {
-            background-color: orange;
-        }
-
-        table tr:nth-child(even) td {
-            background-color: yellow;
-        }
-
-        table tr.selected-thema td {
-            background-color: red;
-            color: white;
-        }
-
-        p.break {
-            padding: 0;
-            margin: 0;
-        }
-    </style>
-    <script>
-    function selectThema(element) {
-        var elem = $(element);
-
-        if(elem.hasClass("selected-thema")) {
-            elem.removeClass("selected-thema");
-            $("button").attr("disabled", "disabled");
-        } else {
-            $(".thema").removeClass("selected-thema");
-            elem.addClass("selected-thema");
-            $("button").removeAttr("disabled");
-        }
-    }
-
-    function viewThema() {
-        if($(".selected-thema").length > 0) {
-            location.href = "/diskussionen/index/" + $(".selected-thema").data("id");
-        }
-    }
-
-    function deleteThema() {
-        if($(".selected-thema").length > 0) {
-            location.href = "/themen/delete/" + $(".selected-thema").data("id");
-        }
-    }
-    </script>
+    <title>Themen</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/main.js"></script>
 </head>
 <body>
     <a href="/themen/create">Thema erstellen</a>
@@ -69,12 +17,12 @@
                 <p class="break"><small><small>Beschreibung</small></small></p>
             </th>
         </tr>
-        % for t_id in themen:
-        <tr class="thema" onclick="selectThema(this);" data-id="${t_id}">
-            <td>${t_id}</td>
+        % for thema in themen:
+        <tr class="thema" onclick="selectThema(this);" data-id="${thema[0]}">
+            <td>${thema[0]}</td>
             <td>
-                <p class="break">${themen[t_id]['name']}</p>
-                <p class="break"><small><small>${themen[t_id]['beschreibung']}</small></small></p>
+                <p class="break">${thema[1]['name']}</p>
+                <p class="break"><small><small>${thema[1]['beschreibung']}</small></small></p>
             </td>
         </tr>
         % endfor

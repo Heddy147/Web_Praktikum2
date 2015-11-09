@@ -1,0 +1,26 @@
+<%!
+    import datetime
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beitraege</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/main.js"></script>
+</head>
+<body>
+    <p class="break"><a href="/diskussionen/index/${diskussions_id}">Zur&uuml;ck zu Diskussionen</a></p>
+    <p class="break"><a href="/beitraege/create/${diskussions_id}">Beitrag erstellen</a></p>
+    <h2>${diskussion['name']}</h2>
+    % for beitrag in beitraege:
+    <section class="beitrag" onclick="selectBeitrag(this);" data-id="${beitrag[0]}">
+        <div class="beitrags-kopf">${datetime.datetime.fromtimestamp(beitrag[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr, ${beitrag[1]['user']}</div>
+        <div class="beitrags-body">${beitrag[1]['text']}</div>
+    </section>
+    % endfor
+    <button onclick="deleteBeitrag(${diskussions_id});" disabled>L&ouml;schen</button>
+    <button onclick="editBeitrag();" disabled>Bearbeiten</button>
+</body>
+</html>

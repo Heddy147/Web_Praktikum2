@@ -1,7 +1,52 @@
-table#sort-by-semester {
-	display: none;
+table {
+	width: 100%;
 }
 
-button#sort-by-kuerzel {
-	display: none;
+table th {
+	background-color: black;
+	color: white;
+}
+
+table tr:nth-child(odd) td {
+	background-color: orange;
+}
+
+table tr:nth-child(even) td {
+	background-color: yellow;
+}
+
+table tr.selected-thema td {
+	background-color: red;
+	color: white;
+}
+
+table tr.selected-diskussion td {
+	background-color: red;
+	color: white;
+}
+
+section.beitrag {
+	margin-bottom: 20px;
+	background-color: yellow;
+}
+
+section.beitrag.selected-beitrag {
+	background-color: red;
+	color: white;
+}
+
+section.beitrag div.beitrags-kopf {
+	border-bottom: 1px solid grey;
+	padding: 5px;
+	background: lightgrey;
+	color: black;
+}
+
+section.beitrag div.beitrags-body {
+	padding: 10px;
+}
+
+p.break {
+	padding: 0;
+	margin: 0;
 }

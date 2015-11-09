@@ -1,40 +1,68 @@
-function sortByKuerzel() {
-	var table1 = document.querySelector("table#sort-by-kuerzel");
-	var table2 = document.querySelector("table#sort-by-semester");
+function selectThema(element) {
+	var elem = $(element);
 
-	var button1 = document.querySelector("button#sort-by-kuerzel");
-	var button2 = document.querySelector("button#sort-by-semester");
-
-	table1.style.display = "table";
-	table2.style.display = "none";
-
-	button1.style.display = "";
-	button2.style.display = "none";
+	if(elem.hasClass("selected-thema")) {
+		elem.removeClass("selected-thema");
+		$("button").attr("disabled", "disabled");
+	} else {
+		$(".thema").removeClass("selected-thema");
+		elem.addClass("selected-thema");
+		$("button").removeAttr("disabled");
+	}
 }
 
-function sortBySemester() {
-	var table1 = document.querySelector("table#sort-by-kuerzel");
-	var table2 = document.querySelector("table#sort-by-semester");
-
-	var button1 = document.querySelector("button#sort-by-kuerzel");
-	var button2 = document.querySelector("button#sort-by-semester");
-
-	table1.style.display = "none";
-	table2.style.display = "table";
-
-	button2.style.display = "";
-	button1.style.display = "none";
+function viewThema() {
+	if($(".selected-thema").length > 0) {
+		location.href = "/diskussionen/index/" + $(".selected-thema").data("id");
+	}
 }
 
-
-function themaClicked(){
-	$("tr").click(function(){
-		window.location.href = "/diskussion?id="+this.id;
-	});
+function deleteThema() {
+	if($(".selected-thema").length > 0) {
+		location.href = "/themen/delete/" + $(".selected-thema").data("id");
+	}
 }
 
-function diskussionClicked(){
-	$("tr").click(function(){
-		window.location.href = "/beitrag?id="+this.id;
-	});
+function selectDiskussion(element) {
+	var elem = $(element);
+
+	if(elem.hasClass("selected-diskussion")) {
+		elem.removeClass("selected-diskussion");
+		$("button").attr("disabled", "disabled");
+	} else {
+		$(".diskussion").removeClass("selected-diskussion");
+		elem.addClass("selected-diskussion");
+		$("button").removeAttr("disabled");
+	}
+}
+
+function viewDiskussion() {
+	if($(".selected-diskussion").length > 0) {
+		location.href = "/beitraege/index/" + $(".selected-diskussion").data("id");
+	}
+}
+
+function deleteDiskussion(themen_id) {
+	if($(".selected-diskussion").length > 0) {
+		location.href = "/diskussionen/delete/" + themen_id + "/" + $(".selected-diskussion").data("id");
+	}
+}
+
+function selectBeitrag(element) {
+	var elem = $(element);
+
+	if(elem.hasClass("selected-beitrag")) {
+		elem.removeClass("selected-beitrag");
+		$("button").attr("disabled", "disabled");
+	} else {
+		$(".beitrag").removeClass("selected-beitrag");
+		elem.addClass("selected-beitrag");
+		$("button").removeAttr("disabled");
+	}
+}
+
+function deleteBeitrag(diskussions_id) {
+	if($(".selected-beitrag").length > 0) {
+		location.href = "/beitraege/delete/" + diskussions_id + "/" + $(".selected-beitrag").data("id");
+	}
 }
