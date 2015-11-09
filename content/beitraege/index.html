@@ -11,14 +11,21 @@
     <script src="/js/main.js"></script>
 </head>
 <body>
-    <p class="break"><a href="/diskussionen/index/${diskussions_id}">Zur&uuml;ck zu Diskussionen</a></p>
+    <p class="break"><a href="/diskussionen/index/${themen_id}">Zur&uuml;ck zu Diskussionen</a></p>
     <p class="break"><a href="/beitraege/create/${diskussions_id}">Beitrag erstellen</a></p>
     <h2>${diskussion['name']}</h2>
     % for beitrag in beitraege:
+    % if "deleted" in beitrag[1]:
+    <div class="beitrag" data-id="${beitrag[0]}">
+        <div class="beitrags-kopf">${datetime.datetime.fromtimestamp(beitrag[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr, ${beitrag[1]['user']}</div>
+        <div class="beitrags-body">Diese Beitrag wurde von einem Administrato gel&ouml;scht.</div>
+    </div>
+    % else:
     <div class="beitrag" onclick="selectBeitrag(this);" data-id="${beitrag[0]}">
         <div class="beitrags-kopf">${datetime.datetime.fromtimestamp(beitrag[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr, ${beitrag[1]['user']}</div>
         <div class="beitrags-body">${beitrag[1]['text']}</div>
     </div>
+    % endif
     % endfor
     <button onclick="deleteBeitrag(${diskussions_id});" disabled>L&ouml;schen</button>
     <button onclick="editBeitrag(${diskussions_id});" disabled>Bearbeiten</button>

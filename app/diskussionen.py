@@ -47,6 +47,10 @@ class Diskussionen_cl(object):
 
 	@cherrypy.expose
 	def edit(self, themen_id, diskussions_id, **kwargs):
+		cherrypy.Application.user.user_logged_in()
+		if not cherrypy.Application.user.is_admin():
+			return cherrypy.Application.view.error("403")
+
 		diskussion = self.db.load_diskussion(diskussions_id)
 
 		if "name" in kwargs and "beschreibung" in kwargs:

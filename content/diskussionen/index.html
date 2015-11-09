@@ -26,6 +26,18 @@
             <th>Letzter Beitrag</th>
         </tr>
         % for diskussion in diskussionen:
+        % if "deleted" in diskussion[1]:
+        <tr class="diskussion" data-id="${diskussion[0]}">
+            <td>${diskussion[0]}</td>
+            <td>
+                <p class="break">Diskussion gel&ouml;scht</p>
+                <p class="break"><small><small>Diese Diskussion wurde von einem Administrator gel&ouml;scht.</small></small></p>
+            </td>
+            <td>
+                -
+            </td>
+        </tr>
+        % else:
         <tr class="diskussion" onclick="selectDiskussion(this);" data-id="${diskussion[0]}">
             <td>${diskussion[0]}</td>
             <td>
@@ -36,6 +48,7 @@
                 ${datetime.datetime.fromtimestamp(diskussion[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr
             </td>
         </tr>
+        % endif
         % endfor
     </table>
     <button onclick="viewDiskussion();" disabled>Betreten</button>

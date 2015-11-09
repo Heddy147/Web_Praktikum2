@@ -70,7 +70,7 @@ class Database_cl(object):
 			"name": name,
 			"beschreibung": beschreibung
 		}
-		print thema
+
 		for t_id in themen:
 			if t_id == thema_id:
 				themen[t_id] = thema
@@ -157,6 +157,16 @@ class Database_cl(object):
 		else:
 			return {}
 
+	def get_themen_id_of_diskussion(self, diskussion_id):
+		diskussionen = self.load_diskussionen(None, False)
+
+		for t_id in diskussionen:
+			for d_id in diskussionen[t_id]:
+				if(d_id == diskussion_id):
+					return t_id
+
+		return 0
+
 	def load_diskussion(self, diskussions_id):
 		diskussionen = self.load_diskussionen(None, False)
 
@@ -169,8 +179,6 @@ class Database_cl(object):
 	def edit_diskussion(self, name, beschreibung, diskussions_id):
 		diskussion = self.load_diskussion(diskussions_id)
 
-		print diskussion
-
 		diskussion["name"] = name
 		diskussion["beschreibung"] = beschreibung
 
@@ -182,11 +190,11 @@ class Database_cl(object):
 		if diskussions_id == None and themen_id in diskussionen:
 			for d_id in diskussionen[themen_id]:
 				self.delete_beitrag(d_id)
-			del diskussionen[themen_id]
+				diskussionen[themen_id][d_id]["deleted"] = True
 			self.save_diskussionen_file(diskussionen)
 		elif themen_id in diskussionen and diskussions_id in diskussionen[themen_id]:
 			self.delete_beitrag(diskussions_id)
-			del diskussionen[themen_id][diskussions_id]
+			diskussionen[themen_id][diskussions_id]["deleted"] = True
 			self.save_diskussionen_file(diskussionen)
 
 	def save_diskussion(self, diskussions_id, diskussion):
@@ -277,10 +285,12 @@ class Database_cl(object):
 		beitraege = self.load_beitraege(None, False)
 
 		if beitrags_id == None and diskussions_id in beitraege:
-			del beitraege[diskussions_id]
+			for b_id in beitraege[diskussions_id]:
+				beitraege[diskussions_id][b_id]["deleted"] = True
+
 			self.save_beitraege_file(beitraege)
 		elif diskussions_id in beitraege and beitrags_id in beitraege[diskussions_id]:
-			del beitraege[diskussions_id][beitrags_id]
+			beitraege[diskussions_id][beitrags_id]["deleted"] = True
 			self.save_beitraege_file(beitraege)
 
 	def edit_beitrag(self, beitrags_id, text):
