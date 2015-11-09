@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diskussion bearbeiten</title>
+</head>
+<body>
+    <a href="/diskussionen/index/${themen_id}">Zur&uuml;ck</a>
+    <form action="" method="POST">
+        <p>
+            <label>Name:</label>
+            <input name="name" type="text" value="${diskussion['name']}"/>
+        </p>
+        <p>
+            <label>Beschreibung:</label>
+            <input name="beschreibung" type="text" value="${diskussion['beschreibung']}"/>
+        </p>
+        <p>
+            <input type="submit" value="Editieren" />
+        </p>
+    </form>
+</body>
+</html>

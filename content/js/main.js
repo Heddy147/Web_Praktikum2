@@ -23,6 +23,12 @@ function deleteThema() {
 	}
 }
 
+function editThema() {
+	if($(".selected-thema").length > 0) {
+		location.href = "/themen/edit/" + $(".selected-thema").data("id");
+	}
+}
+
 function selectDiskussion(element) {
 	var elem = $(element);
 
@@ -48,6 +54,12 @@ function deleteDiskussion(themen_id) {
 	}
 }
 
+function editDiskussion(themen_id) {
+	if($(".selected-diskussion").length > 0) {
+		location.href = "/diskussionen/edit/" + themen_id + "/" + $(".selected-diskussion").data("id");
+	}
+}
+
 function selectBeitrag(element) {
 	var elem = $(element);
 
@@ -64,6 +76,12 @@ function selectBeitrag(element) {
 function deleteBeitrag(diskussions_id) {
 	if($(".selected-beitrag").length > 0) {
 		location.href = "/beitraege/delete/" + diskussions_id + "/" + $(".selected-beitrag").data("id");
+	}
+}
+
+function editBeitrag(diskussions_id) {
+	if($(".selected-beitrag").length > 0) {
+		location.href = "/beitraege/edit/" + diskussions_id + "/" + $(".selected-beitrag").data("id");
 	}
 }
 

@@ -43,4 +43,16 @@ class Themen_cl(object):
 
 		template = Template(filename="content/themen/create.html")
 		return template.render()
+
+	@cherrypy.expose
+	def edit(self, thema_id, **kwargs):
+		if "name" in kwargs and "beschreibung" in kwargs:
+			self.db.edit_thema(kwargs["name"], kwargs["beschreibung"], thema_id)
+			raise cherrypy.HTTPRedirect("/themen/index")
+
+		thema = self.db.load_thema(thema_id)
+
+		template = Template(filename="content/themen/edit.html")
+		return template.render(thema=thema)
+
 # EOF

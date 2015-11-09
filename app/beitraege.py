@@ -55,4 +55,15 @@ class Beitraege_cl(object):
 		beitraege = cherrypy.Application.db.load_beitraege(diskussions_id)
 		return beitraege[len(beitraege) - 1]
 
+	@cherrypy.expose
+	def edit(self, diskussions_id, beitrags_id, **kwargs):
+		beitrag = self.db.load_beitrag(beitrags_id)
+		print beitrag["text"]
+		if "text" in kwargs:
+			self.db.edit_beitrag(beitrags_id, kwargs["text"])
+			raise cherrypy.HTTPRedirect("/beitraege/index/" + diskussions_id)
+
+		template = Template(filename="content/beitraege/edit.html")
+		return template.render(beitrag=beitrag, diskussions_id=diskussions_id)
+
 # EOF

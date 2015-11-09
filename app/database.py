@@ -46,6 +46,14 @@ class Database_cl(object):
 	def sort_themen(self, item):
 		return item[1]['name']
 
+	def load_thema(self, thema_id):
+		themen = self.load_themen(False)
+
+		if thema_id in themen:
+			return themen[thema_id]
+
+		return {}
+
 	def load_themen(self, doSort=True):
 		themen_file = open("data/themen.json", "r")
 		themen_data = json.load(themen_file)
@@ -54,6 +62,20 @@ class Database_cl(object):
 			themen_data = sorted(themen_data.items(), key=self.sort_themen)
 
 		return themen_data
+
+	def edit_thema(self, name, beschreibung, thema_id):
+		themen = self.load_themen(False)
+
+		thema = {
+			"name": name,
+			"beschreibung": beschreibung
+		}
+		print thema
+		for t_id in themen:
+			if t_id == thema_id:
+				themen[t_id] = thema
+
+		self.save_themen_file(themen)
 
 	def create_thema(self, name="Thema", beschreibung="Beschreibung"):
 		themen = self.load_themen(False)
@@ -144,6 +166,16 @@ class Database_cl(object):
 
 		return {}
 
+	def edit_diskussion(self, name, beschreibung, diskussions_id):
+		diskussion = self.load_diskussion(diskussions_id)
+
+		print diskussion
+
+		diskussion["name"] = name
+		diskussion["beschreibung"] = beschreibung
+
+		self.save_diskussion(diskussions_id, diskussion)
+
 	def delete_diskussion(self, themen_id, diskussions_id=None):
 		diskussionen = self.load_diskussionen(None, False)
 
@@ -174,6 +206,8 @@ class Database_cl(object):
 	def sort_beitraege(self, item):
 		return int(item[1]['time'])
 
+
+
 	def load_beitraege(self, diskussionen_id=None, doSort=True):
 		beitraege_file = open("data/beitraege.json", "r")
 		beitraege_data = json.load(beitraege_file)
@@ -200,6 +234,16 @@ class Database_cl(object):
 			return beitraege_data[diskussionen_id]
 		else:
 			return {}
+
+	def load_beitrag(self, beitrags_id):
+		beitraege = self.load_beitraege()
+
+		for d_id in beitraege:
+			for beitrag in beitraege[d_id]:
+				if beitrag[0] == beitrags_id:
+					return beitrag[1]
+
+		return {}
 
 	def create_beitrag(self, diskussions_id, text="Text"):
 		beitraege = self.load_beitraege(None, False)
@@ -238,6 +282,16 @@ class Database_cl(object):
 		elif diskussions_id in beitraege and beitrags_id in beitraege[diskussions_id]:
 			del beitraege[diskussions_id][beitrags_id]
 			self.save_beitraege_file(beitraege)
+
+	def edit_beitrag(self, beitrags_id, text):
+		beitraege = self.load_beitraege(None, False)
+
+		for d_id in beitraege:
+			for b_id in beitraege[d_id]:
+				if b_id == beitrags_id:
+					beitraege[d_id][b_id]['text'] = text
+
+		self.save_beitraege_file(beitraege)
 
 	def save_beitraege_file(self, new_content):
 		beitraegeFile = open("data/beitraege.json", "w")

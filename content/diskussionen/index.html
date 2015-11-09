@@ -41,7 +41,7 @@
     <button onclick="viewDiskussion();" disabled>Betreten</button>
     % if cherrypy.Application.user.is_admin():
     <button onclick="deleteDiskussion(${themen_id});" disabled>L&ouml;schen</button>
-    <button onclick="editDiskussion();" disabled>Bearbeiten</button>
+    <button onclick="editDiskussion(${themen_id});" disabled>Bearbeiten</button>
     % endif
 </body>
 </html>

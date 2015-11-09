@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beitrag bearbeiten</title>
+</head>
+<body>
+    <a href="/beitraege/index/${diskussions_id}">Zur&uuml;ck</a>
+    <form action="" method="POST">
+        <p>
+            <label>Text:</label>
+            <textarea name="text">${beitrag['text']}</textarea>
+        </p>
+        <p>
+            <input type="submit" value="Editieren" />
+        </p>
+    </form>
+</body>
+</html>
