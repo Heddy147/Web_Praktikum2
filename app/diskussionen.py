@@ -4,6 +4,7 @@ import cherrypy
 from mako.template import Template
 from app import database
 
+
 class Diskussionen_cl(object):
 
 	db = None
@@ -34,5 +35,16 @@ class Diskussionen_cl(object):
 		self.db.delete_diskussion(themen_id, diskussions_id)
 
 		raise cherrypy.HTTPRedirect("/diskussionen/index/" + themen_id)
+
+	@cherrypy.expose
+	def edit(self, themen_id, diskussions_id, **kwargs):
+		diskussion = self.db.load_diskussion(diskussions_id)
+
+		if "name" in kwargs and "beschreibung" in kwargs:
+			self.db.edit_diskussion(kwargs["name"], kwargs["beschreibung"], diskussions_id)
+			raise cherrypy.HTTPRedirect("/diskussionen/index/" + themen_id)
+
+		template = Template(filename="content/diskussionen/edit.html")
+		return template.render(diskussion=diskussion, themen_id=themen_id)
 
 # EOF

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thema bearbeiten</title>
+</head>
+<body>
+    <a href="/themen">Zur&uuml;ck</a>
+    <form action="" method="POST">
+        <p>
+            <label>Name:</label>
+            <input name="name" type="text" value="${thema['name']}"/>
+        </p>
+        <p>
+            <label>Beschreibung:</label>
+            <input name="beschreibung" type="text"  value="${thema['beschreibung']}"/>
+        </p>
+        <p>
+            <input type="submit" value="Editieren" />
+        </p>
+    </form>
+</body>
+</html>
