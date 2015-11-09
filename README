@@ -5,33 +5,100 @@ Dominik Hendrix (919866), David Riemann (917593)
 ## Unsere Lösung
 
 ## Komponenten
+
 ### Benutzer
 #### Zweck
+Diese Komponente dient der Benutzerverwaltung und Rechteverwaltung.
+Sie überprüft, ob ein Benutzer angemeldet ist oder ob der angemeldete Benutzer die nötigen Rechte für eine gewisse Aktion hat.
 #### Aufbau
+Sie beinhaltet sowohl die Authentifizierung an sich als auch die Verarbeitung für die Präsentation.
 #### Zusammenwirken
+Da diese Komponente die Rechteverwaltung und Benutzerverwaltung beinhaltet, wird diese in jeder anderen Komponente bentötigt.
 #### API
+---
+
 ### Themen
 #### Zweck
+Diese Komponente dient zu Verwaltung von Themen. Man kann damit Themen erstellen, bearbeiten oder löschen.
 #### Aufbau
+Beinhaltet jeweils eine Methode für einen CRUD-Dialog.
 #### Zusammenwirken
+Themen werden für die Selektierung der richtigen Diskussionen verwendet.
 #### API
+---
+
 ### Diskussionen
 #### Zweck
+Hiermit kann man verschiedenste Diskussionen erstellen, bearbeiten und löschen.
 #### Aufbau
+Beinhaltet jeweils eine Methode für einen CRUD-Dialog.
 #### Zusammenwirken
+Um die richtigen Beiträge zu erhalten, wird diese Komponente benötigt.
 #### API
+---
+
 ### Beiträge
 #### Zweck
+Um Beiträge anzeigen zu lassen oder mit diesen verschiedene Aktionen auszuführen, benötigt man diese Komponente.
 #### Aufbau
+Beinhaltet jeweils eine Methode für einen CRUD-Dialog.
 #### Zusammenwirken
+---
 #### API
+---
+
 ### Datenbank
 #### Zweck
+Das Datenbank-Objekt dient zur Erstellung, Speicherung, Änderung und Löschung aller Daten.
 #### Aufbau
+Es wurden für alle verschiedenen Daten mehrere Funktionen eingefügt:
+* Alle laden
+* Ein laden
+* Ein erstellen
+* Ein löschen
+* Ein speichern
 #### Zusammenwirken
+Diese Komponente ist für alle anderen Komponenten wichtig, da hierrüber alle Änderungen der Daten geschehen.
 #### API
+---
+
 ### Ansicht
 #### Zweck
+Dient lediglich zum rendern der nötigen Ausgabe.
 #### Aufbau
+Eine Funktion pro Präsentation.
 #### Zusammenwirken
+Wird von den meisten Methoden benutzt, um eine Ausgabe zu erzeugen.
 #### API
+---
+
+## Datenablage
+Um unsere Daten zu speichern benutzen wir keine eigenständige Datenbank, sondern legen die Daten in Dateien ab.
+Die Daten werden zu einem JSON-String konviertert und so in die jeweiligen Dateien abgelegt.
+Es sind 4 verschiedene Datein vorgesehen:
+### Benutzer
+In dieser Datei werden die Benutzer inkl. Rollen- und Rechtevergabe gespeichert.
+Als Index werden die Benutzernamen verwendet, da diese eindeutig sein müssen.
+Hinter diesem Index steckt ein JSON-Objekt, in dem per "Key-Value" jeweils die verschiedensten Eigenschaften gespeichert werden.
+### Themen
+Die Themen werden mithilfe eines zweidimensionales JSON-Objektes gespeichert. Hier dient die ID des Themas als Index, hinter dem wieder ein JSON-Objekt steckt, in dem wiederrum die nötigen Eigenschaften für das Thema als "Key-Value-Pairs" gespeichert werden.
+### Diskussionen
+Auch hier werden die Daten als JSON gespeichert. Hier findet man jedoch ein dreidimensionales JSON-Objekt. An oberster Stelle dienen die Themen-IDs als Index der Objekte, in denen die Diskussionen enthalten. Innerhalb eines Objektes ist es wie bei den Themen: Diskussion-IDs dienen als Indizes.
+### Beiträge
+Die Beiträge werden wie die Diskussionen gespeichert. Allerdings liegen hier an oberster Stelle die Diskussions-IDs als Indizen. Tiefer in das Objekt hinein läuft es sich auf das Gleiche hinaus.
+
+## Konfiguration
+Jedes "Package" wurde manuell auf einen "Unterordner" gelinkt.
+So ist der "Unterordner" (hier nur im Link zu erkennen) "/themen" für jegliche Aktionen der Themen zuständig.
+Zusätlich wurden für die CSS- und JS-Dateien Routen definiert.
+So werden jegliche CSS-Dateien die mit "/css/*" eingebunden werden, auf den Ordner "content/css" geroutet.
+Analog dazu verhält es sich mit den JS-Dateien.
+
+Weiterhin wurden als statisch agierende Objekte an das cherrypy-Objekt in der Eigenschaft "Application" gehangen.
+
+## Durchführung und Ergebnisse der geforderten Prüfungen
+### W3C-Validator HTML
+Es wurden jegliche HTML-Ausgaben vom W3C-Validator überprüft und für korrekt empfunden
+
+### W3C-Validator CSS
+Es wurden jegliche CSS-Ausgaben vom W3C-Validator überprüft und für korrekt empfunden

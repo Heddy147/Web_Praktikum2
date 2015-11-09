@@ -17,33 +17,31 @@
 <h2 id="komponenten">Komponenten</h2>
 <h3 id="benutzer">Benutzer</h3>
 <h4 id="zweck">Zweck</h4>
-<h4 id="aufbau">Aufbau</h4>
-<h4 id="zusammenwirken">Zusammenwirken</h4>
-<h4 id="api">API</h4>
+<p>Diese Komponente dient der Benutzerverwaltung und Rechteverwaltung. Sie überprüft, ob ein Benutzer angemeldet ist oder ob der angemeldete Benutzer die nötigen Rechte für eine gewisse Aktion hat. #### Aufbau Sie beinhaltet sowohl die Authentifizierung an sich als auch die Verarbeitung für die Präsentation. #### Zusammenwirken Da diese Komponente die Rechteverwaltung und Benutzerverwaltung beinhaltet, wird diese in jeder anderen Komponente bentötigt. #### API ---</p>
 <h3 id="themen">Themen</h3>
 <h4 id="zweck-1">Zweck</h4>
-<h4 id="aufbau-1">Aufbau</h4>
-<h4 id="zusammenwirken-1">Zusammenwirken</h4>
-<h4 id="api-1">API</h4>
+<p>Diese Komponente dient zu Verwaltung von Themen. Man kann damit Themen erstellen, bearbeiten oder löschen. #### Aufbau Beinhaltet jeweils eine Methode für einen CRUD-Dialog. #### Zusammenwirken Themen werden für die Selektierung der richtigen Diskussionen verwendet. #### API ---</p>
 <h3 id="diskussionen">Diskussionen</h3>
 <h4 id="zweck-2">Zweck</h4>
-<h4 id="aufbau-2">Aufbau</h4>
-<h4 id="zusammenwirken-2">Zusammenwirken</h4>
-<h4 id="api-2">API</h4>
+<p>Hiermit kann man verschiedenste Diskussionen erstellen, bearbeiten und löschen. #### Aufbau Beinhaltet jeweils eine Methode für einen CRUD-Dialog. #### Zusammenwirken Um die richtigen Beiträge zu erhalten, wird diese Komponente benötigt. #### API ---</p>
 <h3 id="beiträge">Beiträge</h3>
 <h4 id="zweck-3">Zweck</h4>
-<h4 id="aufbau-3">Aufbau</h4>
-<h4 id="zusammenwirken-3">Zusammenwirken</h4>
-<h4 id="api-3">API</h4>
+<p>Um Beiträge anzeigen zu lassen oder mit diesen verschiedene Aktionen auszuführen, benötigt man diese Komponente. #### Aufbau Beinhaltet jeweils eine Methode für einen CRUD-Dialog. #### Zusammenwirken --- #### API ---</p>
 <h3 id="datenbank">Datenbank</h3>
 <h4 id="zweck-4">Zweck</h4>
-<h4 id="aufbau-4">Aufbau</h4>
-<h4 id="zusammenwirken-4">Zusammenwirken</h4>
-<h4 id="api-4">API</h4>
+<p>Das Datenbank-Objekt dient zur Erstellung, Speicherung, Änderung und Löschung aller Daten. #### Aufbau Es wurden für alle verschiedenen Daten mehrere Funktionen eingefügt: * Alle laden * Ein laden * Ein erstellen * Ein löschen * Ein speichern #### Zusammenwirken Diese Komponente ist für alle anderen Komponenten wichtig, da hierrüber alle Änderungen der Daten geschehen. #### API ---</p>
 <h3 id="ansicht">Ansicht</h3>
 <h4 id="zweck-5">Zweck</h4>
-<h4 id="aufbau-5">Aufbau</h4>
-<h4 id="zusammenwirken-5">Zusammenwirken</h4>
-<h4 id="api-5">API</h4>
+<p>Dient lediglich zum rendern der nötigen Ausgabe. #### Aufbau Eine Funktion pro Präsentation. #### Zusammenwirken Wird von den meisten Methoden benutzt, um eine Ausgabe zu erzeugen. #### API ---</p>
+<h2 id="datenablage">Datenablage</h2>
+<p>Um unsere Daten zu speichern benutzen wir keine eigenständige Datenbank, sondern legen die Daten in Dateien ab. Die Daten werden zu einem JSON-String konviertert und so in die jeweiligen Dateien abgelegt. Es sind 4 verschiedene Datein vorgesehen: ### Benutzer In dieser Datei werden die Benutzer inkl. Rollen- und Rechtevergabe gespeichert. Als Index werden die Benutzernamen verwendet, da diese eindeutig sein müssen. Hinter diesem Index steckt ein JSON-Objekt, in dem per &quot;Key-Value&quot; jeweils die verschiedensten Eigenschaften gespeichert werden. ### Themen Die Themen werden mithilfe eines zweidimensionales JSON-Objektes gespeichert. Hier dient die ID des Themas als Index, hinter dem wieder ein JSON-Objekt steckt, in dem wiederrum die nötigen Eigenschaften für das Thema als &quot;Key-Value-Pairs&quot; gespeichert werden. ### Diskussionen Auch hier werden die Daten als JSON gespeichert. Hier findet man jedoch ein dreidimensionales JSON-Objekt. An oberster Stelle dienen die Themen-IDs als Index der Objekte, in denen die Diskussionen enthalten. Innerhalb eines Objektes ist es wie bei den Themen: Diskussion-IDs dienen als Indizes. ### Beiträge Die Beiträge werden wie die Diskussionen gespeichert. Allerdings liegen hier an oberster Stelle die Diskussions-IDs als Indizen. Tiefer in das Objekt hinein läuft es sich auf das Gleiche hinaus.</p>
+<h2 id="konfiguration">Konfiguration</h2>
+<p>Jedes &quot;Package&quot; wurde manuell auf einen &quot;Unterordner&quot; gelinkt. So ist der &quot;Unterordner&quot; (hier nur im Link zu erkennen) &quot;/themen&quot; für jegliche Aktionen der Themen zuständig. Zusätlich wurden für die CSS- und JS-Dateien Routen definiert. So werden jegliche CSS-Dateien die mit &quot;/css/*&quot; eingebunden werden, auf den Ordner &quot;content/css&quot; geroutet. Analog dazu verhält es sich mit den JS-Dateien.</p>
+<p>Weiterhin wurden als statisch agierende Objekte an das cherrypy-Objekt in der Eigenschaft &quot;Application&quot; gehangen.</p>
+<h2 id="durchführung-und-ergebnisse-der-geforderten-prüfungen">Durchführung und Ergebnisse der geforderten Prüfungen</h2>
+<h3 id="w3c-validator-html">W3C-Validator HTML</h3>
+<p>Es wurden jegliche HTML-Ausgaben vom W3C-Validator überprüft und für korrekt empfunden</p>
+<h3 id="w3c-validator-css">W3C-Validator CSS</h3>
+<p>Es wurden jegliche CSS-Ausgaben vom W3C-Validator überprüft und für korrekt empfunden</p>
 </body>
 </html>
