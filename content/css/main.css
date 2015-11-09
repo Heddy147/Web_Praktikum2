@@ -25,28 +25,37 @@ table tr.selected-diskussion td {
 	color: white;
 }
 
-section.beitrag {
-	margin-bottom: 20px;
-	background-color: yellow;
-}
-
-section.beitrag.selected-beitrag {
+table tr.selected-user td {
 	background-color: red;
 	color: white;
 }
 
-section.beitrag div.beitrags-kopf {
+div.beitrag {
+	margin-bottom: 20px;
+	background-color: yellow;
+}
+
+div.beitrag.selected-beitrag {
+	background-color: red;
+	color: white;
+}
+
+div.beitrag div.beitrags-kopf {
 	border-bottom: 1px solid grey;
 	padding: 5px;
 	background: lightgrey;
 	color: black;
 }
 
-section.beitrag div.beitrags-body {
+div.beitrag div.beitrags-body {
 	padding: 10px;
 }
 
 p.break {
 	padding: 0;
 	margin: 0;
+}
+
+p.error {
+	color: #AA3333;
 }

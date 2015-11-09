@@ -15,10 +15,10 @@
     <p class="break"><a href="/beitraege/create/${diskussions_id}">Beitrag erstellen</a></p>
     <h2>${diskussion['name']}</h2>
     % for beitrag in beitraege:
-    <section class="beitrag" onclick="selectBeitrag(this);" data-id="${beitrag[0]}">
+    <div class="beitrag" onclick="selectBeitrag(this);" data-id="${beitrag[0]}">
         <div class="beitrags-kopf">${datetime.datetime.fromtimestamp(beitrag[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr, ${beitrag[1]['user']}</div>
         <div class="beitrags-body">${beitrag[1]['text']}</div>
-    </section>
+    </div>
     % endfor
     <button onclick="deleteBeitrag(${diskussions_id});" disabled>L&ouml;schen</button>
     <button onclick="editBeitrag();" disabled>Bearbeiten</button>

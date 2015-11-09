@@ -1,5 +1,6 @@
 <%!
     import datetime
+    import cherrypy
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +11,11 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/main.js"></script>
 </head>
-<p>
+<body>
     <p class="break"><a href="/themen">Zur&uuml;ck zu Themen</a></p>
+    % if cherrypy.Application.user.is_admin():
     <p class="break"><a href="/diskussionen/create/${themen_id}">Diskussion erstellen</a></p>
+    % endif
     <table>
         <tr>
             <th>Diskussions-ID</th>
@@ -36,7 +39,9 @@
         % endfor
     </table>
     <button onclick="viewDiskussion();" disabled>Betreten</button>
+    % if cherrypy.Application.user.is_admin():
     <button onclick="deleteDiskussion(${themen_id});" disabled>L&ouml;schen</button>
     <button onclick="editDiskussion();" disabled>Bearbeiten</button>
+    % endif
 </body>
 </html>

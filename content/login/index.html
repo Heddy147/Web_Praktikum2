@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/main.js"></script>
+</head>
+<body>
+    <a href="/themen">Zur&uuml;ck</a>
+    % if error:
+    <p class="error">Falsche Daten eingegeben</p>
+    % endif
+    <form method="POST">
+        <p>
+            <label>Benutzername:</label>
+            <input type="text" name="username" />
+        </p>
+        <p>
+            <label>Passwort:</label>
+            <input type="password" name="password" />
+        </p>
+        <p>
+            <input type="submit" value="Einloggen" />
+        </p>
+    </form>
+</body>
+</html>

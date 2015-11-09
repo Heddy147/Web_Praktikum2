@@ -1,5 +1,6 @@
 # coding: utf-8
 import json
+import cherrypy
 import time
 import operator
 import collections
@@ -16,6 +17,31 @@ class Database_cl(object):
 		user_data = json.load(user_file)
 
 		return user_data
+
+	def create_user(self, username, password, rolle, diskussionen):
+		users = self.load_user()
+		if username in users:
+			return False
+
+		users[username] = {
+			"password": password,
+			"rolle": rolle,
+			"diskussionen": diskussionen
+		}
+
+		self.save_users_file(users)
+
+		return True
+
+	def delete_user(self, username):
+		users = self.load_user()
+		if username in users:
+			del users[username]
+			self.save_users_file(users)
+
+	def save_users_file(self, new_content):
+		usersFile = open("data/user.json", "w")
+		json.dump(new_content, usersFile)
 
 	def sort_themen(self, item):
 		return item[1]['name']
@@ -59,7 +85,6 @@ class Database_cl(object):
 	def create_diskussion(self, themen_id, name="Diskussion", beschreibung="Beschreibung"):
 		diskussionen = self.load_diskussionen(None, False)
 
-		print "themen_id" + str(themen_id) + "name: " + name + "beschreibung: " + beschreibung
 		last_diskussions_id = 0
 
 		for t_id in diskussionen:
@@ -198,7 +223,7 @@ class Database_cl(object):
 
 		beitraege[diskussions_id][last_beitrags_id] = {
 			"text": text,
-			"user": application.user,
+			"user": cherrypy.Application.user.user,
 			"time": time.time()
 		}
 

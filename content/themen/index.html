@@ -1,3 +1,6 @@
+<%!
+    import cherrypy
+%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -8,7 +11,15 @@
     <script src="/js/main.js"></script>
 </head>
 <body>
+    % if cherrypy.Application.user.is_admin():
     <a href="/themen/create">Thema erstellen</a>
+    <a href="/benutzer">Benutzerverwaltung</a>
+    % endif
+    % if cherrypy.Application.user.user == None:
+    <a href="/login">Einloggen</a>
+    % else:
+    <a href="/login/logout">Ausloggen</a>
+    % endif
     <table>
         <tr>
             <th>Themen-ID</th>
@@ -28,7 +39,10 @@
         % endfor
     </table>
     <button onclick="viewThema();" disabled>Betreten</button>
+
+    % if cherrypy.Application.user.user != None and cherrypy.Application.user.user_obj["rolle"] == "admin":
     <button onclick="deleteThema();" disabled>L&ouml;schen</button>
     <button onclick="editThema();" disabled>Bearbeiten</button>
+    % endif
 </body>
 </html>

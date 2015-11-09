@@ -1,17 +1,1 @@
-{
-  "dominik": {
-    "password": "dominik123",
-    "rolle": "admin",
-    "diskussion": ["1", "2", "3"],
-    "beitraege": ["1", "2", "3"]
-  },
-  "david": {
-    "password": "david123",
-    "rolle": "bearbeiter",
-    "diskussion": ["1", "2", "3"],
-    "beitraege": ["1", "2", "3"]
-  },
-  "volker": {
-    "password": "volker123"
-  }
-}
+{"dominik": {"password": "dominik123", "diskussionen": [], "rolle": "admin"}, "david": {"password": "david123", "diskussionen": ["1"], "rolle": "bearbeiter"}}

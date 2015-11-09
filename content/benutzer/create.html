@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Benutzer erstellen</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/main.js"></script>
+</head>
+<body>
+    % if error:
+    <p class="error">Es ist etwas schief gegangen!</p>
+    % endif
+    <a href="/benutzer">Zur&uuml;ck</a>
+    <form method="POST">
+        <p>
+            <label>Benutzername:</label>
+            <input type="text" name="username" />
+        </p>
+        <p>
+            <label>Passwort:</label>
+            <input type="password" name="password" />
+        </p>
+        <p>
+            <label>Rolle:</label>
+            <input type="radio" name="rolle" value="admin" /> Admin
+            <input type="radio" name="rolle" value="bearbeiter" /> Bearbeiter
+        </p>
+        <p>
+            <label>Diskussionen:</label>
+            <select multiple name="diskussionen">
+                % for t_id in diskussionen:
+                % for diskussion in diskussionen[t_id]:
+                <option value="${diskussion[0]}">${diskussion[1]["name"]}</option>
+                % endfor
+                % endfor
+            </select>
+        </p>
+        <p>
+            <input type="submit" value="Anlegen" />
+        </p>
+    </form>
+</body>
+</html>

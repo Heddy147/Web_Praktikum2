@@ -1,9 +1,6 @@
 # coding: utf-8
 import cherrypy
 
-user = "admin"
-
-
 class Application_cl(object):
 	def __init__(self):
 		pass

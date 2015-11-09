@@ -15,6 +15,7 @@ class Diskussionen_cl(object):
 
 	@cherrypy.expose
 	def index(self, themen_id):
+		cherrypy.Application.user.user_logged_in()
 		diskussionen = self.db.load_diskussionen(themen_id)
 
 		template = Template(filename="content/diskussionen/index.html")
@@ -22,6 +23,10 @@ class Diskussionen_cl(object):
 
 	@cherrypy.expose
 	def create(self, themen_id, **kwargs):
+		cherrypy.Application.user.user_logged_in()
+		if not cherrypy.Application.user.is_admin():
+			return cherrypy.Application.view.error("403")
+
 		if "name" in kwargs and "beschreibung" in kwargs:
 			self.db.create_diskussion(themen_id, kwargs["name"], kwargs["beschreibung"])
 			raise cherrypy.HTTPRedirect("/diskussionen/index/" + themen_id)
@@ -31,6 +36,10 @@ class Diskussionen_cl(object):
 
 	@cherrypy.expose
 	def delete(self, themen_id, diskussions_id):
+		cherrypy.Application.user.user_logged_in()
+		if not cherrypy.Application.user.is_admin():
+			return cherrypy.Application.view.error("403")
+
 		self.db.delete_diskussion(themen_id, diskussions_id)
 
 		raise cherrypy.HTTPRedirect("/diskussionen/index/" + themen_id)
