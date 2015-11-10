@@ -12,6 +12,10 @@
     <a href="/beitraege/index/${diskussions_id}">Zur&uuml;ck</a>
     <form action="" method="POST">
         <p>
+            <label>Titel:</label>
+            <input name="titel" value="${beitrag['titel']}"></input>
+        </p>
+        <p>
             <label>Text:</label>
             <textarea name="text">${beitrag['text']}</textarea>
         </p>

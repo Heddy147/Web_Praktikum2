@@ -17,12 +17,12 @@
     % for beitrag in beitraege:
     % if "deleted" in beitrag[1]:
     <div class="beitrag" data-id="${beitrag[0]}">
-        <div class="beitrags-kopf">${datetime.datetime.fromtimestamp(beitrag[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr, ${beitrag[1]['user']}</div>
+        <div class="beitrags-kopf">${datetime.datetime.fromtimestamp(beitrag[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr, ${beitrag[1]['user']} - Beitrag gel&ouml;scht</div>
         <div class="beitrags-body">Diese Beitrag wurde von einem Administrato gel&ouml;scht.</div>
     </div>
     % else:
     <div class="beitrag" onclick="selectBeitrag(this);" data-id="${beitrag[0]}">
-        <div class="beitrags-kopf">${datetime.datetime.fromtimestamp(beitrag[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr, ${beitrag[1]['user']}</div>
+        <div class="beitrags-kopf">${datetime.datetime.fromtimestamp(beitrag[1]['time']).strftime('%d.%m.%Y - %H:%M')} Uhr, ${beitrag[1]['user']} - ${beitrag[1]['titel']}</div>
         <div class="beitrags-body">${beitrag[1]['text']}</div>
     </div>
     % endif

@@ -270,7 +270,7 @@ class Database_cl(object):
 
 		return {}
 
-	def create_beitrag(self, diskussions_id, text="Text"):
+	def create_beitrag(self, diskussions_id, text="Text", titel="Titel"):
 		beitraege = self.load_beitraege(None, False)
 
 		last_beitrags_id = 0
@@ -291,6 +291,7 @@ class Database_cl(object):
 			self.save_diskussion(diskussions_id, diskussion)
 
 		beitraege[diskussions_id][last_beitrags_id] = {
+			"titel": titel,
 			"text": text,
 			"user": cherrypy.Application.user.user,
 			"time": time.time()
@@ -310,12 +311,13 @@ class Database_cl(object):
 			beitraege[diskussions_id][beitrags_id]["deleted"] = True
 			self.save_beitraege_file(beitraege)
 
-	def edit_beitrag(self, beitrags_id, text):
+	def edit_beitrag(self, beitrags_id, text, titel):
 		beitraege = self.load_beitraege(None, False)
 
 		for d_id in beitraege:
 			for b_id in beitraege[d_id]:
 				if b_id == beitrags_id:
+					beitraege[d_id][b_id]['titel'] = titel
 					beitraege[d_id][b_id]['text'] = text
 
 		self.save_beitraege_file(beitraege)
