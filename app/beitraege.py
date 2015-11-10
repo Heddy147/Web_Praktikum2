@@ -33,8 +33,8 @@ class Beitraege_cl(object):
 	@cherrypy.expose
 	def create(self, diskussions_id, **kwargs):
 		cherrypy.Application.user.user_logged_in()
-		if "text" in kwargs:
-			cherrypy.Application.db.create_beitrag(diskussions_id, kwargs["text"])
+		if "text" in kwargs and "titel" in kwargs:
+			cherrypy.Application.db.create_beitrag(diskussions_id, kwargs["text"], kwargs["titel"])
 			raise cherrypy.HTTPRedirect("/beitraege/index/" + diskussions_id)
 
 		template = Template(filename="content/beitraege/create.html")
@@ -46,8 +46,8 @@ class Beitraege_cl(object):
 
 		if cherrypy.Application.user.is_editor_of_diskussion(diskussions_id) or (self.is_letzter_beitrag(diskussions_id, beitrags_id) and self.is_bearbeiter(self.get_letzter_beitrag(diskussions_id))):
 			beitrag = cherrypy.Application.db.load_beitrag(beitrags_id)
-			if "text" in kwargs:
-				cherrypy.Application.db.edit_beitrag(beitrags_id, kwargs["text"])
+			if "text" in kwargs and "titel" in kwargs:
+				cherrypy.Application.db.edit_beitrag(beitrags_id, kwargs["text"], kwargs["titel"])
 				raise cherrypy.HTTPRedirect("/beitraege/index/" + diskussions_id)
 
 			template = Template(filename="content/beitraege/edit.html")
