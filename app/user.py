@@ -35,7 +35,7 @@ class User_cl(object):
 		self.user_obj = user_obj
 
 	def is_logged_in(self):
-		return self.user_obj == None
+		return self.user_obj != None
 
 	def is_admin(self):
 		if self.user_obj == None:

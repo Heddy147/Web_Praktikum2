@@ -1,1 +1,1 @@
-{"1": {"1": {"deleted": true, "text": "Text 1", "time": 1447140682.102604, "user": "dominik", "titel": "Titel 1 Hammer geil"}}}
+{"1": {"1": {"titel": "Titel 1 Hammer geil", "user": "dominik", "text": "Text 1", "time": 1447140682.102604, "deleted": true}, "2": {"deleted": true, "user": null, "text": "hallo", "time": 1447140994.5675347, "titel": "A*schgeweih"}}}
