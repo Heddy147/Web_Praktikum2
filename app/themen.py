@@ -2,7 +2,7 @@
 
 import cherrypy
 from mako.template import Template
-from app import database, application
+from app import database
 
 
 class Themen_cl(object):
@@ -10,13 +10,12 @@ class Themen_cl(object):
 	db = None
 
 	def __init__(self):
-		self.db = database.Database_cl()
 		pass
 
 	@cherrypy.expose
 	def index(self):
 		cherrypy.Application.user.user_logged_in()
-		themen = self.db.load_themen()
+		themen = cherrypy.Application.db.load_themen()
 
 		template = Template(filename="content/themen/index.html")
 		return template.render(themen=themen)
@@ -27,7 +26,7 @@ class Themen_cl(object):
 		if not cherrypy.Application.user.is_admin():
 			return cherrypy.Application.view.error("403")
 
-		self.db.delete_thema(themen_id)
+		cherrypy.Application.db.delete_thema(themen_id)
 
 		raise cherrypy.HTTPRedirect("/themen/index")
 
@@ -38,7 +37,7 @@ class Themen_cl(object):
 			return cherrypy.Application.view.error("403")
 
 		if "name" in kwargs and "beschreibung" in kwargs:
-			self.db.create_thema(kwargs["name"], kwargs["beschreibung"])
+			cherrypy.Application.db.create_thema(kwargs["name"], kwargs["beschreibung"])
 			raise cherrypy.HTTPRedirect("/themen/index")
 
 		template = Template(filename="content/themen/create.html")
@@ -51,10 +50,10 @@ class Themen_cl(object):
 			return cherrypy.Application.view.error("403")
 
 		if "name" in kwargs and "beschreibung" in kwargs:
-			self.db.edit_thema(kwargs["name"], kwargs["beschreibung"], thema_id)
+			cherrypy.Application.db.edit_thema(kwargs["name"], kwargs["beschreibung"], thema_id)
 			raise cherrypy.HTTPRedirect("/themen/index")
 
-		thema = self.db.load_thema(thema_id)
+		thema = cherrypy.Application.db.load_thema(thema_id)
 
 		template = Template(filename="content/themen/edit.html")
 		return template.render(thema=thema)

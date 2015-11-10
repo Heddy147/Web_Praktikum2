@@ -1,7 +1,6 @@
 # coding: utf-8
 import cherrypy
 from mako.template import Template
-from app import database
 
 
 class Beitraege_cl(object):

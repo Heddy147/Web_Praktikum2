@@ -2,9 +2,6 @@
 import json
 import cherrypy
 import time
-import operator
-import collections
-from app import application
 
 
 class Database_cl(object):

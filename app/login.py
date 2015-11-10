@@ -1,6 +1,5 @@
 # coding: utf-8
 import cherrypy
-from app import application
 from mako.template import Template
 
 class Login_cl(object):
