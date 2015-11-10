@@ -7,6 +7,10 @@ table th {
 	color: white;
 }
 
+table th.id {
+	width: 120px;
+}
+
 table tr:nth-child(odd) td {
 	background-color: orange;
 }
