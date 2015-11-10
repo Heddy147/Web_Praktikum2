@@ -107,14 +107,64 @@ In dieser Datei werden die Benutzer inkl. Rollen- und Rechtevergabe gespeichert.
 Als Index werden die Benutzernamen verwendet, da diese eindeutig sein müssen.
 Hinter diesem Index steckt ein JSON-Objekt, in dem per "Key-Value" jeweils die verschiedensten Eigenschaften gespeichert werden.
 
+Dieses JSON-Objekt sieht folgendermaßen aus:
+```json
+{
+	"benutzername": {
+		"rolle": String,
+		"password": String,
+		"diskussionen": Array
+	}
+}
+```
+In der Eigenschaft "diskussionen" ist ein Array vorzufinden, welches die IDs der Diskussionen beinhaltet, in der der Benutzer Beiträge bearbeiten und löschen kann.
+
 ### Themen
 Die Themen werden mithilfe eines zweidimensionalen JSON-Objektes gespeichert. Hier dient die ID des Themas als Index, hinter dem wieder ein JSON-Objekt steckt, in dem wiederrum die nötigen Eigenschaften für das Thema als "Key-Value-Pairs" gespeichert werden.
+
+Dieses JSON-Objekt sieht folgendermaßen aus:
+```json
+{
+	"id": {
+		"name": String,
+		"beschreibung": String
+	}
+}
+```
 
 ### Diskussionen
 Auch hier werden die Daten als JSON gespeichert. Hier findet man jedoch ein dreidimensionales JSON-Objekt. An oberster Stelle dienen die Themen-IDs als Index der Objekte, in denen die Diskussionen enthalten. Innerhalb eines Objektes ist es wie bei den Themen: Diskussion-IDs dienen als Indizes.
 
+Dieses JSON-Objekt sieht folgendermaßen aus:
+```json
+{
+	"Themen-ID": {
+		"Diskussions-ID": {
+			"beschreibung": String,
+			"name": String,
+			"time": Double
+		}
+	}
+}
+```
+
 ### Beiträge
 Die Beiträge werden wie die Diskussionen gespeichert. Allerdings liegen hier an oberster Stelle die Diskussions-IDs als Indizen. Tiefer in das Objekt hinein läuft es sich auf das Gleiche hinaus.
+
+Dieses JSON-Objekt sieht folgendermaßen aus:
+```json
+{
+	"Diskussions-ID": {
+		"Beitrags-ID": {
+			"titel": String,
+			"user": String,
+			"text": String,
+			"time": Double,
+			"deleted": Boolean
+		}
+	}
+}
+```
 
 ## Konfiguration
 Jedes "Package" wurde manuell auf einen "Unterordner" gelinkt.

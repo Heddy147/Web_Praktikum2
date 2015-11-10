@@ -6,6 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -67,12 +104,50 @@
 <p>Um unsere Daten zu speichern benutzen wir keine eigenständige Datenbank, sondern legen die Daten in Dateien ab. Die Daten werden zu einem JSON-String konvertiert und so in die jeweiligen Dateien abgelegt. Es sind 4 verschiedene Datein vorgesehen:</p>
 <h3 id="benutzer-1">Benutzer</h3>
 <p>In dieser Datei werden die Benutzer inkl. Rollen- und Rechtevergabe gespeichert. Als Index werden die Benutzernamen verwendet, da diese eindeutig sein müssen. Hinter diesem Index steckt ein JSON-Objekt, in dem per &quot;Key-Value&quot; jeweils die verschiedensten Eigenschaften gespeichert werden.</p>
+<p>Dieses JSON-Objekt sieht folgendermaßen aus:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;benutzername&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;rolle&quot;</span><span class="fu">:</span> <span class="er">String</span><span class="fu">,</span>
+        <span class="dt">&quot;password&quot;</span><span class="fu">:</span> <span class="er">String</span><span class="fu">,</span>
+        <span class="dt">&quot;diskussionen&quot;</span><span class="fu">:</span> <span class="er">Array</span>
+    <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
+<p>In der Eigenschaft &quot;diskussionen&quot; ist ein Array vorzufinden, welches die IDs der Diskussionen beinhaltet, in der der Benutzer Beiträge bearbeiten und löschen kann.</p>
 <h3 id="themen-1">Themen</h3>
 <p>Die Themen werden mithilfe eines zweidimensionalen JSON-Objektes gespeichert. Hier dient die ID des Themas als Index, hinter dem wieder ein JSON-Objekt steckt, in dem wiederrum die nötigen Eigenschaften für das Thema als &quot;Key-Value-Pairs&quot; gespeichert werden.</p>
+<p>Dieses JSON-Objekt sieht folgendermaßen aus:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="er">String</span><span class="fu">,</span>
+        <span class="dt">&quot;beschreibung&quot;</span><span class="fu">:</span> <span class="er">String</span>
+    <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
 <h3 id="diskussionen-1">Diskussionen</h3>
 <p>Auch hier werden die Daten als JSON gespeichert. Hier findet man jedoch ein dreidimensionales JSON-Objekt. An oberster Stelle dienen die Themen-IDs als Index der Objekte, in denen die Diskussionen enthalten. Innerhalb eines Objektes ist es wie bei den Themen: Diskussion-IDs dienen als Indizes.</p>
+<p>Dieses JSON-Objekt sieht folgendermaßen aus:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;Themen-ID&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;Diskussions-ID&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+            <span class="dt">&quot;beschreibung&quot;</span><span class="fu">:</span> <span class="er">String</span><span class="fu">,</span>
+            <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="er">String</span><span class="fu">,</span>
+            <span class="dt">&quot;time&quot;</span><span class="fu">:</span> <span class="er">Double</span>
+        <span class="fu">}</span>
+    <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
 <h3 id="beiträge-1">Beiträge</h3>
 <p>Die Beiträge werden wie die Diskussionen gespeichert. Allerdings liegen hier an oberster Stelle die Diskussions-IDs als Indizen. Tiefer in das Objekt hinein läuft es sich auf das Gleiche hinaus.</p>
+<p>Dieses JSON-Objekt sieht folgendermaßen aus:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;Diskussions-ID&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;Beitrags-ID&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+            <span class="dt">&quot;titel&quot;</span><span class="fu">:</span> <span class="er">String</span><span class="fu">,</span>
+            <span class="dt">&quot;user&quot;</span><span class="fu">:</span> <span class="er">String</span><span class="fu">,</span>
+            <span class="dt">&quot;text&quot;</span><span class="fu">:</span> <span class="er">String</span><span class="fu">,</span>
+            <span class="dt">&quot;time&quot;</span><span class="fu">:</span> <span class="er">Double</span><span class="fu">,</span>
+            <span class="dt">&quot;deleted&quot;</span><span class="fu">:</span> <span class="er">Boolean</span>
+        <span class="fu">}</span>
+    <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
 <h2 id="konfiguration">Konfiguration</h2>
 <p>Jedes &quot;Package&quot; wurde manuell auf einen &quot;Unterordner&quot; gelinkt. So ist der &quot;Unterordner&quot; (hier nur im Link zu erkennen) &quot;/themen&quot; für jegliche Aktionen der Themen zuständig. Zusätlich wurden für die CSS- und JS-Dateien Routen definiert. So werden jegliche CSS-Dateien die mit &quot;/css/*&quot; eingebunden werden, auf den Ordner &quot;content/css&quot; geroutet. Analog dazu verhält es sich mit den JS-Dateien.</p>
 <p>Weiterhin wurden (als statisch agierende) Objekte an das cherrypy-Objekt in der Eigenschaft &quot;Application&quot; gehangen.</p>
