@@ -2,6 +2,7 @@
 import os
 import cherrypy
 from app import application, diskussionen, themen, beitraege, login, database, user, view, benutzer
+from app.api import beitraege as beitraege_api
 
 
 def validate_password(realm, username, password):
@@ -67,6 +68,12 @@ def main():
 	cherrypy.tree.mount(benutzer.Benutzer_cl(), '/benutzer', {
 		'/': {
 			'tools.staticdir.root': current_dir
+		}
+	})
+	cherrypy.tree.mount(beitraege_api.Beitraege(), '/api/beitraege', {
+		'/': {
+			'tools.staticdir.root': current_dir,
+			'request.dispatch': cherrypy.dispatch.MethodDispatcher()
 		}
 	})
 

@@ -5,7 +5,12 @@ Dominik Hendrix (919866), David Riemann (917593)
 ## Unsere Lösung
 Das Forum wurde mit Python umgesetzt. Wir benutzen das Framework "CherryPy", mit welchem wir mit wenig Aufwand einen funktionstüchtigen Webserver erzeugen und starten können. Daten werden in JSON-Dateien abgelegt und gespeichert.
 
+Um eine effektive Lösung hinsichtlich der Präsentation zu ermöglichen, benutzen wir die Bibliothek "mako". Diese ermöglicht es Python-Code in den Präsentations-Dateien zu verwenden. Die Präsentations-Datei - welche verwendet wird - wird von "mako" ausgewertet und der enthaltene Python-Code wird ausgeführt.
+
+Für die JavaScript-Entwicklung benutzen wir eine Bibliothek namens "jQuery". Diese Bibliothek stellt Methoden bereit, die verschiedenste JavaScript-Funktionen beinhalten, sodass komplexere Funktionalitäten mit weniger Aufwand ausgeführt werden können.
+
 ## Komponenten
+Alle Komponenten sind sehr ähnlich aufgebaut. Sie unterscheiden sich lediglich von den Daten, mit denen die jeweilige Komponente arbeitet.
 
 ### Benutzer
 
@@ -16,8 +21,10 @@ Sie überprüft, ob ein Benutzer angemeldet ist oder ob der angemeldete Benutzer
 #### Aufbau
 Sie beinhaltet sowohl die Authentifizierung an sich als auch die Verarbeitung für die Präsentation.
 
+Außerdem wird mit dieser Komponente der Benutzer dargestellt. Es werden alle Daten vom eingeloggten Benutzer hier hinterlegt.
+
 #### Zusammenwirken
-Da diese Komponente die Rechteverwaltung und Benutzerverwaltung beinhaltet, wird diese in jeder anderen Komponente bentötigt.
+Da diese Komponente die Rechteverwaltung und Benutzerverwaltung beinhaltet, wird diese in jeder anderen Komponente benötigt.
 
 #### API
 
@@ -71,6 +78,7 @@ Das Datenbank-Objekt dient zur Erstellung, Speicherung, Änderung und Löschung 
 
 #### Aufbau
 Es wurden für alle verschiedenen Daten mehrere Funktionen eingefügt:
+
 * Alle laden
 * Ein laden
 * Ein erstellen
