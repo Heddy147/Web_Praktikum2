@@ -1,32 +1,19 @@
-$(document).ready(function() {
-	$('form').submit(check_form);
-});
+function check_form(form_elem) {
+	var schimpfwoerter = ['arsch', 'schlampe', 'scheiße', 'blödman'];
 
-function check_form(event) {
-	var schimpfwoerter = ['arsch', 'schlampe', 'blödmann', 'scheiße', 'blödman'];
+	if(form_elem.find('textarea, input').length > 0) {
+		var elements = form_elem.find('textarea, input');
 
-	if($('form textarea[name="text"]').length == 1 || $('form input[name="titel"]').length == 1) {
-		var text_input_value = false;
-		var titel_input_value = false;
-		if($('form textarea[name="text"]').length == 1) {
-			text_input_value = $('form textarea[name="text"]').val();
-		}
-
-		if($('form input[name="titel"]').length == 1) {
-			text_input_value = $('form input[name="titel"]').val();
-		}
-
-		for(var i in schimpfwoerter) {
-			var regex = new RegExp(schimpfwoerter[i]);
-			if(text_input_value !== false && regex.test(text_input_value)) {
-				alert("Keine Schimpfwörter!");
-				event.preventDefault();
+		elements.each(function() {
+			for(var i in schimpfwoerter) {
+				var regex = new RegExp(schimpfwoerter[i]);
+				if(regex.test($(this).val())) {
+					alert("Keine Schimpfwörter!");
+					return false;
+				}
 			}
-
-			if(titel_input_value !== false && regex.test(titel_input_value)) {
-				alert("Keine Schimpfwörter!");
-				event.preventDefault();
-			}
-		}
+		});
 	}
+
+	return true;
 }

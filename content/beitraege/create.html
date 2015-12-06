@@ -7,20 +7,21 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/form_validate.js"></script>
+    <script src="/js/beitraege.js"></script>
 </head>
 <body>
     <a href="/beitraege/index/${diskussions_id}">Zur&uuml;ck</a>
-    <form method="POST">
+    <form method="POST" id="form-create-beitrag" data-diskussions-id="${diskussions_id}">
         <p>
             <label>Titel:</label>
-            <input name="titel"></input>
+            <input name="titel" required />
         </p>
         <p>
             <label>Text:</label>
             <textarea name="text"></textarea>
         </p>
         <p>
-            <input type="submit" value="Erstellen" />
+            <button type="submit">Erstellen</button>
         </p>
     </form>
 </body>
