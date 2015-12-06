@@ -28,3 +28,32 @@ function editThema() {
 		location.href = "/themen/edit/" + $(".selected-thema").data("id");
 	}
 }
+
+$(document).ready(function() {
+	$('#form-create-thema').submit(function(event) {
+		event.preventDefault();
+		var form_elem = $(this);
+
+		if(check_form(form_elem)) {
+			var daten = {};
+
+			form_elem.find('input').each(function() {
+				daten[$(this).attr('name')] = $(this).val();
+			});
+
+			$.ajax({
+				method: "POST",
+				url: "/api/themen",
+				contentType: "plain/text",
+				data: JSON.stringify(daten)
+			}).done(function() {
+				alert("Thema wurde gespeichert!");
+				form_elem.find('input').each(function() {
+					$(this).val('');
+				});
+			}).fail(function() {
+				alert("Irgendwas ist schief gelaufen!")
+			});
+		}
+	});
+});

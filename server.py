@@ -1,9 +1,12 @@
 # coding: utf-8
 import os
 import cherrypy
+import imp
 from app import application, diskussionen, themen, beitraege, login, database, user, view, benutzer
-from app.api import beitraege as beitraege_api
-
+# from app.api import beitraege as beitraege_api
+# from app.api import themen as themen_api
+beitraege_api = imp.load_source("app.api", "app/api/beitraege.py")
+themen_api = imp.load_source("app.api", "app/api/themen.py")
 
 def validate_password(realm, username, password):
 	users = application.db.load_user()
@@ -71,6 +74,12 @@ def main():
 		}
 	})
 	cherrypy.tree.mount(beitraege_api.Beitraege(), '/api/beitraege', {
+		'/': {
+			'tools.staticdir.root': current_dir,
+			'request.dispatch': cherrypy.dispatch.MethodDispatcher()
+		}
+	})
+	cherrypy.tree.mount(themen_api.Themen(), '/api/themen', {
 		'/': {
 			'tools.staticdir.root': current_dir,
 			'request.dispatch': cherrypy.dispatch.MethodDispatcher()
