@@ -30,27 +30,35 @@ function editThema() {
 }
 
 $(document).ready(function() {
-	$('#form-create-thema').submit(function(event) {
+	$('#form-thema').submit(function(event) {
 		event.preventDefault();
 		var form_elem = $(this);
 
 		if(check_form(form_elem)) {
 			var daten = {};
+			var method = "POST";
 
 			form_elem.find('input').each(function() {
 				daten[$(this).attr('name')] = $(this).val();
 			});
 
+			if(typeof form_elem.data('themen-id') != "undefined") {
+				daten.id = form_elem.data('themen-id');
+				method = "PUT";
+			}
+
 			$.ajax({
-				method: "POST",
+				method: method,
 				url: "/api/themen",
 				contentType: "plain/text",
 				data: JSON.stringify(daten)
 			}).done(function() {
 				alert("Thema wurde gespeichert!");
-				form_elem.find('input').each(function() {
-					$(this).val('');
-				});
+				if(method == "POST") {
+					form_elem.find('input').each(function() {
+						$(this).val('');
+					});
+				}
 			}).fail(function() {
 				alert("Irgendwas ist schief gelaufen!")
 			});

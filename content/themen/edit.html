@@ -7,10 +7,11 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/form_validate.js"></script>
+    <script src="/js/themen.js"></script>
 </head>
 <body>
     <a href="/themen">Zur&uuml;ck</a>
-    <form action="" method="POST">
+    <form action="" method="POST" id="form-thema" data-themen-id="${thema_id}">
         <p>
             <label>Name:</label>
             <input name="name" type="text" value="${thema['name']}"/>
@@ -20,7 +21,7 @@
             <input name="beschreibung" type="text"  value="${thema['beschreibung']}"/>
         </p>
         <p>
-            <input type="submit" value="Editieren" />
+            <button type="submit" >Editieren</button>
         </p>
     </form>
 </body>

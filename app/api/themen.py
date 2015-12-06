@@ -16,15 +16,14 @@ class Themen:
 		return id
 
 	@cherrypy.tools.accept(media='plain/text')
-	def POST(self, themen_id):
+	def POST(self):
 		content = cherrypy.request.body.read().decode("utf-8")
 		jsonContent = json.loads(content)
-		print(jsonContent)
 
 		cherrypy.Application.user.user_logged_in()
 		if cherrypy.Application.user.is_admin():
 			if "name" in jsonContent and "beschreibung" in jsonContent:
-				cherrypy.Application.db.create_thema(themen_id, jsonContent["name"], jsonContent["beschreibung"])
+				cherrypy.Application.db.create_thema(jsonContent["name"], jsonContent["beschreibung"])
 				# Rueckgabe von: Alles okay
 				return "okay"
 
@@ -39,8 +38,17 @@ class Themen:
 	def PUT(self):
 		content = cherrypy.request.body.read().decode("utf-8")
 		jsonContent = json.loads(content)
-		data = jsonContent['data']
-		id = jsonContent['id']
+		themen_id = jsonContent['id']
+
+		cherrypy.Application.user.user_logged_in()
+		if cherrypy.Application.user.is_admin():
+			if "name" in jsonContent and "beschreibung" in jsonContent:
+				cherrypy.Application.db.edit_thema(jsonContent["name"], jsonContent["beschreibung"], themen_id)
+				return "true"
+
+			return "false_error"
+		else:
+			return "false_not_logged_in"
 
 
 # EOF

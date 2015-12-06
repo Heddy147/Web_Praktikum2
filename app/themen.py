@@ -56,6 +56,6 @@ class Themen_cl(object):
 		thema = cherrypy.Application.db.load_thema(thema_id)
 
 		template = Template(filename="content/themen/edit.html")
-		return template.render(thema=thema)
+		return template.render(thema=thema, thema_id=thema_id)
 
 # EOF

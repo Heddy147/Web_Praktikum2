@@ -26,8 +26,9 @@ class Diskussionen_cl(object):
 		cherrypy.Application.user.user_logged_in()
 		if not cherrypy.Application.user.is_admin():
 			return cherrypy.Application.view.error("403")
-
+		print kwargs
 		if "name" in kwargs and "beschreibung" in kwargs:
+
 			cherrypy.Application.db.create_diskussion(themen_id, kwargs["name"], kwargs["beschreibung"])
 			raise cherrypy.HTTPRedirect("/diskussionen/index/" + themen_id)
 
@@ -57,6 +58,6 @@ class Diskussionen_cl(object):
 			raise cherrypy.HTTPRedirect("/diskussionen/index/" + themen_id)
 
 		template = Template(filename="content/diskussionen/edit.html")
-		return template.render(diskussion=diskussion, themen_id=themen_id)
+		return template.render(diskussion=diskussion, themen_id=themen_id, diskussions_id=diskussions_id)
 
 # EOF
