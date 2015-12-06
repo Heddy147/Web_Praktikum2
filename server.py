@@ -80,7 +80,7 @@ def main():
 			'request.dispatch': cherrypy.dispatch.MethodDispatcher()
 		}
 	})
-	cherrypy.tree.mount(benutzer_api.Beitraege(), '/api/benutzer', {
+	cherrypy.tree.mount(benutzer_api.Benutzer(), '/api/benutzer', {
 		'/': {
 			'tools.staticdir.root': current_dir,
 			'request.dispatch': cherrypy.dispatch.MethodDispatcher()
