@@ -6,6 +6,7 @@ from app import application, diskussionen, themen, beitraege, login, database, u
 # from app.api import beitraege as beitraege_api
 # from app.api import themen as themen_api
 beitraege_api = imp.load_source("app.api", "app/api/beitraege.py")
+benutzer_api = imp.load_source("app.api", "app/api/benutzer.py")
 themen_api = imp.load_source("app.api", "app/api/themen.py")
 
 def validate_password(realm, username, password):
@@ -74,6 +75,12 @@ def main():
 		}
 	})
 	cherrypy.tree.mount(beitraege_api.Beitraege(), '/api/beitraege', {
+		'/': {
+			'tools.staticdir.root': current_dir,
+			'request.dispatch': cherrypy.dispatch.MethodDispatcher()
+		}
+	})
+	cherrypy.tree.mount(benutzer_api.Beitraege(), '/api/benutzer', {
 		'/': {
 			'tools.staticdir.root': current_dir,
 			'request.dispatch': cherrypy.dispatch.MethodDispatcher()

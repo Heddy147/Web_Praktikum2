@@ -100,20 +100,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Ein löschen</li>
 <li>Ein speichern</li>
 </ul>
-<h4 id="zusammenwirken-4">Zusammenwirken</h4>
-<p>Diese Komponente ist für alle anderen Komponenten wichtig, da hierrüber alle Änderungen der Daten geschehen.</p>
-<h4 id="api-4">API</h4>
+<h4 id="funktionen">Funktionen</h4>
+<p><strong>Daten laden</strong></p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">dict</span> load_user()</code></pre></div>
+<p>Wird ohne Parameter aufgerufen. Man erhält ein JSON-Objekt, welches <a href="#benutzer-json">weiter unten</a> beschrieben wird.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">dict</span> load_thema(thema_id)</code></pre></div>
+<p>Lädt ein Thema. Die Themen-ID (thema_id) muss dafür übergeben werden. <a href="#themen-json">JSON-Struktur</a></p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">dict</span> load_themen(doSort<span class="op">=</span><span class="va">True</span>)</code></pre></div>
+<p>Lädt alle Themen, die in der JSON-Datei enthalten sind. Der zu übergebene Parameter gibt an, ob das zurückgegebene Dictionary sortiert zurückgegeben werden soll.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">array<span class="op">|</span><span class="bu">dict</span> load_diskussionen(<span class="va">self</span>, themen_id<span class="op">=</span><span class="va">None</span>, doSort<span class="op">=</span><span class="va">True</span>)</code></pre></div>
+<p>Lädt Diskussionen. Wenn der Parameter &quot;themen_id&quot; angegeben wird, werden nur Diskussionen vom Thema mit der Themen-ID geladen. Wenn &quot;doSort&quot; mit True angegeben wird, wird eine sortierte Liste erzeugt. Diese hat folgende Struktur:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span><span class="er">(Diskussions-ID)</span> <span class="er">String</span><span class="ot">,</span> <span class="er">(JSON-Objekt)</span><span class="ot">]</span></code></pre></div>
+<p>Der Eintrag mit dem Index &quot;0&quot; widerspiegelt die Diskussions-ID, der Eintrag mit dem Index &quot;1&quot; die eigentlichen Daten. Die Daten sind wie <a href="#diskussionen-json">unten beschrieben</a> strukturiert.</p>
+<p>Wird der Parameter &quot;doSort&quot; auf false gesetzt, erhält man ein Dictionary, welches wie <a href="#diskussionen-json">unten beschrieben</a> strukturiert ist.</p>
 <h3 id="ansicht">Ansicht</h3>
 <h4 id="zweck-5">Zweck</h4>
 <p>Dient lediglich zum rendern der nötigen Ausgabe.</p>
 <h4 id="aufbau-5">Aufbau</h4>
 <p>Eine Funktion pro Präsentation.</p>
-<h4 id="zusammenwirken-5">Zusammenwirken</h4>
+<h4 id="zusammenwirken-4">Zusammenwirken</h4>
 <p>Wird von den meisten Methoden benutzt, um eine Ausgabe zu erzeugen.</p>
-<h4 id="api-5">API</h4>
+<h4 id="api-4">API</h4>
 <h2 id="datenablage">Datenablage</h2>
 <p>Um unsere Daten zu speichern benutzen wir keine eigenständige Datenbank, sondern legen die Daten in Dateien ab. Die Daten werden zu einem JSON-String konvertiert und so in die jeweiligen Dateien abgelegt. Es sind 4 verschiedene Datein vorgesehen:</p>
-<h3 id="benutzer-1">Benutzer</h3>
+<h3 id="benutzer-json">Benutzer</h3>
 <p>In dieser Datei werden die Benutzer inkl. Rollen- und Rechtevergabe gespeichert. Als Index werden die Benutzernamen verwendet, da diese eindeutig sein müssen. Hinter diesem Index steckt ein JSON-Objekt, in dem per &quot;Key-Value&quot; jeweils die verschiedensten Eigenschaften gespeichert werden.</p>
 <p>Dieses JSON-Objekt sieht folgendermaßen aus:</p>
 <div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
@@ -124,7 +134,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="fu">}</span>
 <span class="fu">}</span></code></pre></div>
 <p>In der Eigenschaft &quot;diskussionen&quot; ist ein Array vorzufinden, welches die IDs der Diskussionen beinhaltet, in der der Benutzer Beiträge bearbeiten und löschen kann.</p>
-<h3 id="themen-1">Themen</h3>
+<h3 id="themen-json">Themen</h3>
 <p>Die Themen werden mithilfe eines zweidimensionalen JSON-Objektes gespeichert. Hier dient die ID des Themas als Index, hinter dem wieder ein JSON-Objekt steckt, in dem wiederrum die nötigen Eigenschaften für das Thema als &quot;Key-Value-Pairs&quot; gespeichert werden.</p>
 <p>Dieses JSON-Objekt sieht folgendermaßen aus:</p>
 <div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
@@ -133,7 +143,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         <span class="dt">&quot;beschreibung&quot;</span><span class="fu">:</span> <span class="er">String</span>
     <span class="fu">}</span>
 <span class="fu">}</span></code></pre></div>
-<h3 id="diskussionen-1">Diskussionen</h3>
+<h3 id="diskussionen-json">Diskussionen</h3>
 <p>Auch hier werden die Daten als JSON gespeichert. Hier findet man jedoch ein dreidimensionales JSON-Objekt. An oberster Stelle dienen die Themen-IDs als Index der Objekte, in denen die Diskussionen enthalten. Innerhalb eines Objektes ist es wie bei den Themen: Diskussion-IDs dienen als Indizes.</p>
 <p>Dieses JSON-Objekt sieht folgendermaßen aus:</p>
 <div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
@@ -145,7 +155,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         <span class="fu">}</span>
     <span class="fu">}</span>
 <span class="fu">}</span></code></pre></div>
-<h3 id="beiträge-1">Beiträge</h3>
+<h3 id="beitraege-json">Beiträge</h3>
 <p>Die Beiträge werden wie die Diskussionen gespeichert. Allerdings liegen hier an oberster Stelle die Diskussions-IDs als Indizen. Tiefer in das Objekt hinein läuft es sich auf das Gleiche hinaus.</p>
 <p>Dieses JSON-Objekt sieht folgendermaßen aus:</p>
 <div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>

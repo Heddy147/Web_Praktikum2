@@ -1,1 +1,1 @@
-{"dominik": {"rolle": "admin", "password": "dominik123", "diskussionen": []}, "david123": {"rolle": "bearbeiter", "password": "12345admin", "diskussionen": ["2", "4", "5"]}}
+{"Testbenutzer": {"diskussionen": ["2"], "rolle": "bearbeiter", "password": "testing"}, "dominik": {"diskussionen": [], "rolle": "admin", "password": "dominik123"}, "david123": {"diskussionen": ["2", "4", "5"], "rolle": "bearbeiter", "password": "12345admin"}, "Testbenutzer343": {"diskussionen": ["2"], "rolle": "bearbeiter", "password": "testing"}}

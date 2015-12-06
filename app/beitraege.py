@@ -49,11 +49,11 @@ class Beitraege_cl(object):
 		if cherrypy.Application.user.is_editor_of_diskussion(diskussions_id) or (self.is_letzter_beitrag(diskussions_id, beitrags_id) and self.is_bearbeiter(self.get_letzter_beitrag(diskussions_id))):
 			beitrag = cherrypy.Application.db.load_beitrag(beitrags_id)
 			if "text" in kwargs and "titel" in kwargs:
-				cherrypy.Application.db.edit_beitrag(beitrags_id, kwargs["text"], kwargs["titel"])
+				cherrypy.Application.db.edit_beitrag(beitrags_id, diskussions_id, kwargs["text"], kwargs["titel"])
 				raise cherrypy.HTTPRedirect("/beitraege/index/" + diskussions_id)
 
 			template = Template(filename="content/beitraege/edit.html")
-			return template.render(beitrag=beitrag, diskussions_id=diskussions_id)
+			return template.render(beitrag=beitrag, diskussions_id=diskussions_id, beitrags_id=beitrags_id)
 		else:
 			return cherrypy.Application.view.error("403")
 

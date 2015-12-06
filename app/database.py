@@ -308,14 +308,16 @@ class Database_cl(object):
 			beitraege[diskussions_id][beitrags_id]["deleted"] = True
 			self.save_beitraege_file(beitraege)
 
-	def edit_beitrag(self, beitrags_id, text, titel):
+	def edit_beitrag(self, beitrags_id, diskussions_id, text, titel):
 		beitraege = self.load_beitraege(None, False)
 
 		for d_id in beitraege:
 			for b_id in beitraege[d_id]:
-				if b_id == beitrags_id:
+				if b_id == str(beitrags_id):
 					beitraege[d_id][b_id]['titel'] = titel
 					beitraege[d_id][b_id]['text'] = text
+		# beitraege[diskussions_id][beitrags_id]['titel'] = titel
+		# beitraege[diskussions_id][beitrags_id]['text'] = text
 
 		self.save_beitraege_file(beitraege)
 

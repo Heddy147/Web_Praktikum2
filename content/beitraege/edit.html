@@ -7,20 +7,21 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/form_validate.js"></script>
+    <script src="/js/beitraege.js"></script>
 </head>
 <body>
     <a href="/beitraege/index/${diskussions_id}">Zur&uuml;ck</a>
-    <form action="" method="POST">
+    <form action="" method="POST" id="form-beitrag" data-diskussions-id="${diskussions_id}" data-beitrags-id="${beitrags_id}">
         <p>
             <label>Titel:</label>
-            <input name="titel" value="${beitrag['titel']}"></input>
+            <input name="titel" value="${beitrag['titel']}" />
         </p>
         <p>
             <label>Text:</label>
             <textarea name="text">${beitrag['text']}</textarea>
         </p>
         <p>
-            <input type="submit" value="Editieren" />
+            <button type="submit">Editieren</button>
         </p>
     </form>
 </body>

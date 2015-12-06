@@ -6,41 +6,50 @@ class Beitraege:
 
 	exposed = True
 
-	def GET(self, id=None):
-
-		if id == None:
-			print("Nichts")
-		else:
-			print(id)
-
-		return id
-
 	@cherrypy.tools.accept(media='plain/text')
 	def POST(self, diskussions_id):
 		content = cherrypy.request.body.read().decode("utf-8")
 		jsonContent = json.loads(content)
-		print(jsonContent)
 
 		cherrypy.Application.user.user_logged_in()
 		if cherrypy.Application.user.is_logged_in():
 			if "text" in jsonContent and "titel" in jsonContent:
 				cherrypy.Application.db.create_beitrag(diskussions_id, jsonContent["text"], jsonContent["titel"])
-				# Rueckgabe von: Alles okay
-				return "okay"
+				return "true"
 
-			# return template.render(diskussions_id=diskussions_id)
-			# Rueckgabe von: Alles scheisse!
-			return "not_okay"
+			return "false_error"
 		else:
-			return "not_okay"
-			# return cherrypy.Application.view.error("403")
-			# Rueckgabe von: Berechtigungsfehler
+			return "false_not_logged_in"
 
-	def PUT(self):
+	def PUT(self, diskussions_id):
 		content = cherrypy.request.body.read().decode("utf-8")
 		jsonContent = json.loads(content)
-		data = jsonContent['data']
-		id = jsonContent['id']
+		beitrags_id = jsonContent["id"]
+
+		cherrypy.Application.user.user_logged_in()
+		if cherrypy.Application.user.is_logged_in():
+			if cherrypy.Application.user.is_editor_of_diskussion(diskussions_id) or (self.is_letzter_beitrag(diskussions_id, beitrags_id) and self.is_bearbeiter(self.get_letzter_beitrag(diskussions_id))):
+				if "text" in jsonContent and "titel" in jsonContent:
+					cherrypy.Application.db.edit_beitrag(beitrags_id, diskussions_id, jsonContent["text"], jsonContent["titel"])
+					return "true"
+
+				return "false_error"
+			else:
+				return "false_rights"
+		else:
+			return "false_not_logged_in"
 
 
+	def is_bearbeiter(self, beitrag):
+		cherrypy.Application.user.user_logged_in()
+		return beitrag[1]["user"] == cherrypy.Application.user.user
+
+	def is_letzter_beitrag(self, diskussions_id, beitrags_id):
+		letzterBeitrag = self.get_letzter_beitrag(diskussions_id)
+
+		return letzterBeitrag[0] == beitrags_id
+
+	def get_letzter_beitrag(self, diskussions_id):
+		beitraege = cherrypy.Application.db.load_beitraege(diskussions_id)
+		return beitraege[len(beitraege) - 1]
 # EOF
