@@ -58,7 +58,7 @@ $(document).ready(function() {
 				} else if(data == "false_not_admin") {
 					alert("Sie haben nicht die noetigen Rechte!");
 				} else {
-					alert("Beitrag wurde gespeichert!");
+					alert("Diskussion wurde gespeichert!");
 					if(method == "POST") {
 						form_elem.find('input').each(function() {
 							$(this).val('');

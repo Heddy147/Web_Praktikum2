@@ -86,7 +86,7 @@ class Database_cl(object):
 		}
 
 		for t_id in themen:
-			if t_id == thema_id:
+			if t_id == str(thema_id):
 				themen[t_id] = thema
 
 		self.save_themen_file(themen)
@@ -191,6 +191,7 @@ class Database_cl(object):
 		return {}
 
 	def edit_diskussion(self, name, beschreibung, diskussions_id):
+		diskussions_id = str(diskussions_id)
 		diskussion = self.load_diskussion(diskussions_id)
 
 		diskussion["name"] = name

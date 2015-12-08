@@ -26,7 +26,7 @@ class Diskussionen_cl(object):
 		cherrypy.Application.user.user_logged_in()
 		if not cherrypy.Application.user.is_admin():
 			return cherrypy.Application.view.error("403")
-		print kwargs
+
 		if "name" in kwargs and "beschreibung" in kwargs:
 
 			cherrypy.Application.db.create_diskussion(themen_id, kwargs["name"], kwargs["beschreibung"])
